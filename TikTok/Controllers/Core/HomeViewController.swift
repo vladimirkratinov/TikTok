@@ -46,9 +46,10 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(horizontalScrollView)
         setUpFeed()
+        setUpHeaderButtons()
+        
         horizontalScrollView.delegate = self
         horizontalScrollView.contentOffset = CGPoint(x: view.width, y: 0)
-        setUpHeaderButtons()
     }
     
     override func viewDidLayoutSubviews() {
