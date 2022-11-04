@@ -14,8 +14,16 @@ class HomeViewController: UIViewController {
         scrollView.bounces = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.isPagingEnabled = true
-        scrollView.backgroundColor = .red
         return scrollView
+    }()
+    
+    let control: UISegmentedControl = {
+        let titles = ["Following", "For You"]
+        let control = UISegmentedControl(items: titles)
+        control.selectedSegmentIndex = 1
+        control.backgroundColor = nil
+        control.selectedSegmentTintColor = .white
+        return control
     }()
     
     let forYouPageViewController = UIPageViewController(
@@ -38,12 +46,25 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(horizontalScrollView)
         setUpFeed()
+        horizontalScrollView.delegate = self
         horizontalScrollView.contentOffset = CGPoint(x: view.width, y: 0)
+        setUpHeaderButtons()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         horizontalScrollView.frame = view.bounds
+    }
+    
+    func setUpHeaderButtons() {
+        control.addTarget(self, action: #selector(didChangeSegmentControl), for: .valueChanged)
+        navigationItem.titleView = control
+    }
+    
+    @objc private func didChangeSegmentControl(_ sender: UISegmentedControl) {
+        horizontalScrollView.setContentOffset(CGPoint(x: view.width * CGFloat(sender.selectedSegmentIndex),
+                                                      y: 0),
+                                              animated: true)
     }
     
     private func setUpFeed() {
@@ -145,5 +166,15 @@ extension HomeViewController: UIPageViewControllerDataSource {
         
         // For You
         return forYouPosts
+    }
+}
+
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x == 0 || scrollView.contentOffset.x <=  (view.width/2) {
+            control.selectedSegmentIndex = 0
+        } else if scrollView.contentOffset.x > (view.width/2) {
+            control.selectedSegmentIndex = 1
+        }
     }
 }
