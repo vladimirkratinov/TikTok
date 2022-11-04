@@ -18,7 +18,6 @@
 		F77498562914E912000B7DDB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498552914E912000B7DDB /* SettingsViewController.swift */; };
 		F77498582914E92E000B7DDB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498572914E92E000B7DDB /* TabBarViewController.swift */; };
 		F774985D2914E97D000B7DDB /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F774985C2914E97D000B7DDB /* PostViewController.swift */; };
-		F774985F2914E999000B7DDB /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F774985E2914E999000B7DDB /* APICaller.swift */; };
 		F77498612914E9A6000B7DDB /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498602914E9A6000B7DDB /* StorageManager.swift */; };
 		F77498632914E9C4000B7DDB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498622914E9C4000B7DDB /* DatabaseManager.swift */; };
 		F77498652914E9DD000B7DDB /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498642914E9DD000B7DDB /* AuthenticationManager.swift */; };
@@ -29,6 +28,8 @@
 		F786065E2914BFE700C4D7C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F786065D2914BFE700C4D7C4 /* Assets.xcassets */; };
 		F78606612914BFE700C4D7C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F786065F2914BFE700C4D7C4 /* LaunchScreen.storyboard */; };
 		F7C4FFC129157E26000BFE60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */; };
+		F7EB3D8F2915A4BD001C1D9F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB3D8E2915A4BD001C1D9F /* Extensions.swift */; };
+		F7EB3D912915A994001C1D9F /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB3D902915A994001C1D9F /* PostModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +46,6 @@
 		F77498552914E912000B7DDB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F77498572914E92E000B7DDB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		F774985C2914E97D000B7DDB /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
-		F774985E2914E999000B7DDB /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		F77498602914E9A6000B7DDB /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		F77498622914E9C4000B7DDB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		F77498642914E9DD000B7DDB /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
@@ -58,6 +58,8 @@
 		F78606602914BFE700C4D7C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F78606622914BFE700C4D7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F7EB3D8E2915A4BD001C1D9F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F7EB3D902915A994001C1D9F /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +94,6 @@
 		F774983F2914E7FA000B7DDB /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				F774985E2914E999000B7DDB /* APICaller.swift */,
 				F77498602914E9A6000B7DDB /* StorageManager.swift */,
 				F77498622914E9C4000B7DDB /* DatabaseManager.swift */,
 				F77498642914E9DD000B7DDB /* AuthenticationManager.swift */,
@@ -111,6 +112,7 @@
 		F77498412914E80E000B7DDB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F7EB3D902915A994001C1D9F /* PostModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -136,6 +138,7 @@
 		F77498442914E81F000B7DDB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F7EB3D8E2915A4BD001C1D9F /* Extensions.swift */,
 				F78606542914BFE700C4D7C4 /* AppDelegate.swift */,
 				F78606562914BFE700C4D7C4 /* SceneDelegate.swift */,
 				F786065D2914BFE700C4D7C4 /* Assets.xcassets */,
@@ -352,11 +355,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F77498672914E9F1000B7DDB /* HapticsManager.swift in Sources */,
+				F7EB3D8F2915A4BD001C1D9F /* Extensions.swift in Sources */,
 				F77498632914E9C4000B7DDB /* DatabaseManager.swift in Sources */,
 				F77498482914E8B8000B7DDB /* ExploreViewController.swift in Sources */,
 				F77498502914E8F1000B7DDB /* UserListViewController.swift in Sources */,
 				F77498562914E912000B7DDB /* SettingsViewController.swift in Sources */,
-				F774985F2914E999000B7DDB /* APICaller.swift in Sources */,
 				F774985D2914E97D000B7DDB /* PostViewController.swift in Sources */,
 				F774984A2914E8C5000B7DDB /* CameraViewController.swift in Sources */,
 				F77498582914E92E000B7DDB /* TabBarViewController.swift in Sources */,
@@ -365,6 +368,7 @@
 				F77498652914E9DD000B7DDB /* AuthenticationManager.swift in Sources */,
 				F774984C2914E8D2000B7DDB /* NotificationsViewController.swift in Sources */,
 				F77498522914E900000B7DDB /* SignInViewController.swift in Sources */,
+				F7EB3D912915A994001C1D9F /* PostModel.swift in Sources */,
 				F774984E2914E8DB000B7DDB /* ProfileViewController.swift in Sources */,
 				F77498612914E9A6000B7DDB /* StorageManager.swift in Sources */,
 				F78606552914BFE700C4D7C4 /* AppDelegate.swift in Sources */,
