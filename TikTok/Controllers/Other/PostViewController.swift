@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol PostViewControllerDelegate: AnyObject {
     func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel)
@@ -60,6 +61,10 @@ class PostViewController: UIViewController {
         return label
     }()
     
+    var player: AVPlayer?
+    
+    private var playerDidFinishObserver: NSObjectProtocol?
+    
     init(model: PostModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
@@ -72,6 +77,8 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureVideo()
+        
         let colors: [UIColor] = [
             .red, .green, .black, .orange, .systemPink, .blue
         ]
@@ -79,9 +86,6 @@ class PostViewController: UIViewController {
         
         setUpButtons()
         setUpDoubleTapToLike()
-        view.addSubview(captionLabel)
-        view.addSubview(profileButton)
-        profileButton.addTarget(self, action: #selector(didTapProfileButton), for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
@@ -119,10 +123,13 @@ class PostViewController: UIViewController {
     }
     
     func setUpButtons() {
+        view.addSubview(profileButton)
         view.addSubview(likeButton)
         view.addSubview(commentButton)
         view.addSubview(shareButton)
+        view.addSubview(captionLabel)
         
+        profileButton.addTarget(self, action: #selector(didTapProfileButton), for: .touchUpInside)
         likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
         commentButton.addTarget(self, action: #selector(didTapComment), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
@@ -130,6 +137,33 @@ class PostViewController: UIViewController {
     
     @objc func didTapProfileButton() {
         delegate?.postViewController(self, didTapProfileButtonFor: model)
+    }
+    
+    private func configureVideo() {
+        guard let path = Bundle.main.path(forResource: "video", ofType: "mp4") else {
+            return
+        }
+        
+        let url = URL(fileURLWithPath: path)
+        player = AVPlayer(url: url)
+        
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = view.bounds
+        playerLayer.videoGravity = .resizeAspectFill
+        view.layer.addSublayer(playerLayer)
+        player?.volume = 0
+        player?.play()
+        
+        guard let player = player else { return }
+        
+        playerDidFinishObserver = NotificationCenter.default.addObserver(
+            forName: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem,
+            queue: .main
+        ) { _ in
+            player.seek(to: .zero)
+            player.play()
+        }
     }
     
     @objc private func didTapLike() {
