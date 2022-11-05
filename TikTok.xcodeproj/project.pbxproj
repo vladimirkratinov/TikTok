@@ -28,6 +28,7 @@
 		F786065E2914BFE700C4D7C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F786065D2914BFE700C4D7C4 /* Assets.xcassets */; };
 		F78606612914BFE700C4D7C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F786065F2914BFE700C4D7C4 /* LaunchScreen.storyboard */; };
 		F78BACE92916DF0E001FC551 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78BACE82916DF0E001FC551 /* CommentTableViewCell.swift */; };
+		F78BACEB2916F9D5001FC551 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F78BACEA2916F9D5001FC551 /* video.mp4 */; };
 		F7B3BE7B29160D15006C3A5E /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */; };
 		F7B3BE7D29161732006C3A5E /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7C29161732006C3A5E /* PostComment.swift */; };
 		F7B3BE7F2916175C006C3A5E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7E2916175C006C3A5E /* User.swift */; };
@@ -62,6 +63,7 @@
 		F78606602914BFE700C4D7C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F78606622914BFE700C4D7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F78BACE82916DF0E001FC551 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		F78BACEA2916F9D5001FC551 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		F7B3BE7C29161732006C3A5E /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		F7B3BE7E2916175C006C3A5E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				F7EB3D8E2915A4BD001C1D9F /* Extensions.swift */,
 				F78606542914BFE700C4D7C4 /* AppDelegate.swift */,
 				F78606562914BFE700C4D7C4 /* SceneDelegate.swift */,
+				F78BACEA2916F9D5001FC551 /* video.mp4 */,
 				F786065D2914BFE700C4D7C4 /* Assets.xcassets */,
 				F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */,
 			);
@@ -294,6 +297,7 @@
 				F78606612914BFE700C4D7C4 /* LaunchScreen.storyboard in Resources */,
 				F786065E2914BFE700C4D7C4 /* Assets.xcassets in Resources */,
 				F7C4FFC129157E26000BFE60 /* GoogleService-Info.plist in Resources */,
+				F78BACEB2916F9D5001FC551 /* video.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
