@@ -27,6 +27,9 @@
 		F78606592914BFE700C4D7C4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78606582914BFE700C4D7C4 /* HomeViewController.swift */; };
 		F786065E2914BFE700C4D7C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F786065D2914BFE700C4D7C4 /* Assets.xcassets */; };
 		F78606612914BFE700C4D7C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F786065F2914BFE700C4D7C4 /* LaunchScreen.storyboard */; };
+		F7B3BE7B29160D15006C3A5E /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */; };
+		F7B3BE7D29161732006C3A5E /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7C29161732006C3A5E /* PostComment.swift */; };
+		F7B3BE7F2916175C006C3A5E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7E2916175C006C3A5E /* User.swift */; };
 		F7C4FFC129157E26000BFE60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */; };
 		F7EB3D8F2915A4BD001C1D9F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB3D8E2915A4BD001C1D9F /* Extensions.swift */; };
 		F7EB3D912915A994001C1D9F /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7EB3D902915A994001C1D9F /* PostModel.swift */; };
@@ -57,6 +60,9 @@
 		F786065D2914BFE700C4D7C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F78606602914BFE700C4D7C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F78606622914BFE700C4D7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		F7B3BE7C29161732006C3A5E /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
+		F7B3BE7E2916175C006C3A5E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7EB3D8E2915A4BD001C1D9F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F7EB3D902915A994001C1D9F /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				F7EB3D902915A994001C1D9F /* PostModel.swift */,
+				F7B3BE7C29161732006C3A5E /* PostComment.swift */,
+				F7B3BE7E2916175C006C3A5E /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -168,6 +176,7 @@
 				F77498532914E90A000B7DDB /* SignUpViewController.swift */,
 				F77498552914E912000B7DDB /* SettingsViewController.swift */,
 				F774985C2914E97D000B7DDB /* PostViewController.swift */,
+				F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -342,11 +351,14 @@
 				F77498562914E912000B7DDB /* SettingsViewController.swift in Sources */,
 				F774985D2914E97D000B7DDB /* PostViewController.swift in Sources */,
 				F774984A2914E8C5000B7DDB /* CameraViewController.swift in Sources */,
+				F7B3BE7B29160D15006C3A5E /* CommentsViewController.swift in Sources */,
 				F77498582914E92E000B7DDB /* TabBarViewController.swift in Sources */,
+				F7B3BE7F2916175C006C3A5E /* User.swift in Sources */,
 				F78606592914BFE700C4D7C4 /* HomeViewController.swift in Sources */,
 				F77498542914E90A000B7DDB /* SignUpViewController.swift in Sources */,
 				F77498652914E9DD000B7DDB /* AuthenticationManager.swift in Sources */,
 				F774984C2914E8D2000B7DDB /* NotificationsViewController.swift in Sources */,
+				F7B3BE7D29161732006C3A5E /* PostComment.swift in Sources */,
 				F77498522914E900000B7DDB /* SignInViewController.swift in Sources */,
 				F7EB3D912915A994001C1D9F /* PostModel.swift in Sources */,
 				F774984E2914E8DB000B7DDB /* ProfileViewController.swift in Sources */,

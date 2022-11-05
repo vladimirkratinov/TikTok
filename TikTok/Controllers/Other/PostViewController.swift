@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol PostViewControllerDelegate: AnyObject {
+    func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel)
+}
+
 class PostViewController: UIViewController {
     
     var model: PostModel
+    weak var delegate: PostViewControllerDelegate?
     
     private let likeButton: UIButton = {
         let button = UIButton()
@@ -40,7 +45,7 @@ class PostViewController: UIViewController {
         label.textAlignment = .left
         label.numberOfLines = 0
         label.text = "Check out this video! #fyp #foryou #foryoupage"
-        label.font = .systemFont(ofSize: 24)
+        label.font = .systemFont(ofSize: 16)
         label.textColor = .white
         return label
     }()
@@ -102,6 +107,7 @@ class PostViewController: UIViewController {
     
     @objc private func didTapComment() {
          //Present comment tray
+        delegate?.postViewController(self, didTapCommentButtonFor: model)
     }
     
     @objc private func didTapShare() {
