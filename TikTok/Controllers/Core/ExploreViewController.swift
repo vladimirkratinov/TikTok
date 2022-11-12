@@ -100,7 +100,23 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .trendingHashtags,
-                cells: posts
+                cells: [
+                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: UIImage(systemName: "person"), count: 1, handler: {
+                        
+                    })),
+                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#niceweather", icon: UIImage(systemName: "cloud.heavyrain"), count: 1, handler: {
+                        
+                    })),
+                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#iPhone14", icon: UIImage(systemName: "phone"), count: 1, handler: {
+                        
+                    })),
+                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#tikTokApp", icon: UIImage(systemName: "video"), count: 1, handler: {
+                        
+                    })),
+                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#awesomeVideo", icon: UIImage(systemName: "star"), count: 1, handler: {
+                        
+                    })),
+                ]
             )
         )
         // Recommended
@@ -158,6 +174,7 @@ class ExploreViewController: UIViewController {
             forCellWithReuseIdentifier: ExploreHashtagCollectionViewCell.identifier
         )
         
+        collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -228,13 +245,24 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.configure(with: viewModel)
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        HapticsManager.shared.vibrateForSelection()
         
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cell",
-            for: indexPath
-        )
-        cell.backgroundColor = .red
-        return cell
+        let model = sections[indexPath.section].cells[indexPath.row]
+        
+        switch model {
+        case .banner( let viewModel):
+            break
+        case .post(let viewModel):
+            break
+        case .hashtag(let viewModel):
+            break
+        case .user(let viewModel):
+            break
+        }
     }
 }
 
