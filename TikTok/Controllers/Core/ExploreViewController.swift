@@ -61,9 +61,8 @@ class ExploreViewController: UIViewController {
         
         var posts = [ExploreCell]()
         for _ in 0...40 {
-            posts.append(.post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                
-            })))
+            posts.append(
+                ExploreCell.post(viewModel: ExplorePostViewModel(thumbnailImage: UIImage(named: "image2"), caption: "This was a really cool post and a long caption ", handler: { })))
         }
         // Trending Posts
         sections.append(
@@ -78,36 +77,21 @@ class ExploreViewController: UIViewController {
             ExploreSection(
                 type: .users,
                 cells: [
-                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil,
-                                                          username: "",
-                                                          followerCount: 0,
-                                                          handler: {
+                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil, username: "wizardexiles", followerCount: 35, handler: {
                         
                     })),
-                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil,
-                                                          username: "",
-                                                          followerCount: 0,
-                                                          handler: {
+                    
+                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil, username: "MorrowindFan", followerCount: 15456, handler: {
                         
                     })),
-                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil,
-                                                          username: "",
-                                                          followerCount: 0,
-                                                          handler: {
-                        
-                    })),
-                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil,
-                                                          username: "",
-                                                          followerCount: 0,
-                                                          handler: {
-                        
-                    })),
-                    .user(viewModel: ExploreUserViewModel(profilePictureURL: nil,
-                                                          username: "",
-                                                          followerCount: 0,
-                                                          handler: {
-                        
-                    })),
+                    
+                        .user(viewModel: ExploreUserViewModel(profilePictureURL: nil, username: "Medved", followerCount: 1337, handler: {
+                            
+                        })),
+                    
+                        .user(viewModel: ExploreUserViewModel(profilePictureURL: nil, username: "Charlie9874", followerCount: 68, handler: {
+                            
+                        }))
                 ]
             )
         )
@@ -116,43 +100,14 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .trendingHashtags,
-                cells: [
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: nil, count: 1, handler: {
-                        
-                    })),
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: nil, count: 1, handler: {
-                        
-                    })),
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: nil, count: 1, handler: {
-                        
-                    })),
-                    .hashtag(viewModel: ExploreHashtagViewModel(text: "#foryou", icon: nil, count: 1, handler: {
-                        
-                    })),
-                ]
+                cells: posts
             )
         )
         // Recommended
         sections.append(
             ExploreSection(
                 type: .recommended,
-                cells: [
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    }))
-                ]
+                cells: posts
             )
         )
         
@@ -160,23 +115,7 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .popular,
-                cells: [
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    }))
-                ]
+                cells: posts
             )
         )
         
@@ -184,23 +123,7 @@ class ExploreViewController: UIViewController {
         sections.append(
             ExploreSection(
                 type: .new,
-                cells: [
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    })),
-                    .post(viewModel: ExplorePostViewModel(thumbnailImage: nil, caption: "", handler: {
-                        
-                    }))
-                ]
+                cells: posts
             )
         )
     }
@@ -368,7 +291,7 @@ extension ExploreViewController {
             // Group
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
-                    widthDimension: .absolute(200),
+                    widthDimension: .absolute(150),
                     heightDimension: .absolute(200)
                 ),
                 subitems: [item]
@@ -376,7 +299,7 @@ extension ExploreViewController {
             
             // Section Layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
-            sectionLayout.orthogonalScrollingBehavior = .groupPaging
+            sectionLayout.orthogonalScrollingBehavior = .continuous
              
             // Return
             return sectionLayout
@@ -422,7 +345,7 @@ extension ExploreViewController {
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .absolute(100),
-                    heightDimension: .absolute(240)
+                    heightDimension: .absolute(300)
                 ),
                 subitem: item,
                 count: 2
@@ -431,7 +354,7 @@ extension ExploreViewController {
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .absolute(110),
-                    heightDimension: .absolute(240)
+                    heightDimension: .absolute(300)
                 ),
                 subitems: [verticalGroup]
             )
