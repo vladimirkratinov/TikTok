@@ -44,7 +44,7 @@ class ExploreViewController: UIViewController {
         for _ in 0...100 {
             let cell = ExploreCell.banner(
                 viewModel: ExploreBannerViewModel(
-                    image: nil, title: "OneTwo", handler: {
+                    image: UIImage(named: "image1"), title: "OneTwo", handler: {
                         
                     }
                 )
@@ -218,13 +218,110 @@ class ExploreViewController: UIViewController {
             UICollectionViewCell.self,
             forCellWithReuseIdentifier: "cell"
         )
+        collectionView.register(
+            ExploreBannerCollectionViewCell.self,
+            forCellWithReuseIdentifier: ExploreBannerCollectionViewCell.identifier
+        )
+        collectionView.register(
+            ExplorePostCollectionViewCell.self,
+            forCellWithReuseIdentifier: ExplorePostCollectionViewCell.identifier
+        )
+        collectionView.register(
+            ExploreUserCollectionViewCell.self,
+            forCellWithReuseIdentifier: ExploreUserCollectionViewCell.identifier
+        )
+        collectionView.register(
+            ExploreHashtagCollectionViewCell.self,
+            forCellWithReuseIdentifier: ExploreHashtagCollectionViewCell.identifier
+        )
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
         
         self.collectionView = collectionView
     }
+}
+
+extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return sections[section].cells.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let model = sections[indexPath.section].cells[indexPath.row]
+        
+        switch model {
+        case .banner( let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ExploreBannerCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ExploreBannerCollectionViewCell else {
+                return collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .post(let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ExplorePostCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ExplorePostCollectionViewCell else {
+                return collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .hashtag(let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ExploreHashtagCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ExploreHashtagCollectionViewCell else {
+                return collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            cell.configure(with: viewModel)
+            return cell
+        case .user(let viewModel):
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ExploreUserCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ExploreUserCollectionViewCell else {
+                return collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "cell",
+                    for: indexPath
+                )
+            }
+            cell.configure(with: viewModel)
+            return cell
+        }
+        
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: "cell",
+            for: indexPath
+        )
+        cell.backgroundColor = .red
+        return cell
+    }
+}
+
+extension ExploreViewController: UISearchBarDelegate {
+    
+}
+
+//MARK: - Section Layouts
+
+extension ExploreViewController {
     func layout(for section: Int) -> NSCollectionLayoutSection {
         let sectionType = sections[section].type
         
@@ -374,40 +471,4 @@ class ExploreViewController: UIViewController {
             return sectionLayout
         }
     }
-}
-
-extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections[section].cells.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let model = sections[indexPath.section].cells[indexPath.row]
-        
-        switch model {
-        case .banner( let viewModel):
-            break
-        case .post(let viewModel):
-            break
-        case .hashtag(let viewModel):
-            break
-        case .user(let viewModel):
-            break
-        }
-        
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "cell",
-            for: indexPath
-        )
-        cell.backgroundColor = .red
-        return cell
-    }
-}
-
-extension ExploreViewController: UISearchBarDelegate {
-    
 }

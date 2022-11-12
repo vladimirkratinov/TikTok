@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		79CB007D1C74964DF68530BC /* Pods_TikTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16520F764F5431D02892F32A /* Pods_TikTok.framework */; };
+		F75508FC291F456E00E3827F /* ExploreBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FB291F456E00E3827F /* ExploreBannerCollectionViewCell.swift */; };
+		F75508FE291F457E00E3827F /* ExplorePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */; };
+		F7550900291F458700E3827F /* ExploreUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */; };
+		F7550902291F459200E3827F /* ExploreHashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7550901291F459200E3827F /* ExploreHashtagCollectionViewCell.swift */; };
 		F77498482914E8B8000B7DDB /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498472914E8B8000B7DDB /* ExploreViewController.swift */; };
 		F774984A2914E8C5000B7DDB /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498492914E8C5000B7DDB /* CameraViewController.swift */; };
 		F774984C2914E8D2000B7DDB /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F774984B2914E8D2000B7DDB /* NotificationsViewController.swift */; };
@@ -48,6 +52,10 @@
 		16520F764F5431D02892F32A /* Pods_TikTok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TikTok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F672350753D094345C6F89C /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 		981ABDC803A0F359E182F862 /* Pods-TikTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.debug.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.debug.xcconfig"; sourceTree = "<group>"; };
+		F75508FB291F456E00E3827F /* ExploreBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBannerCollectionViewCell.swift; sourceTree = "<group>"; };
+		F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePostCollectionViewCell.swift; sourceTree = "<group>"; };
+		F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		F7550901291F459200E3827F /* ExploreHashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHashtagCollectionViewCell.swift; sourceTree = "<group>"; };
 		F77498472914E8B8000B7DDB /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		F77498492914E8C5000B7DDB /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F774984B2914E8D2000B7DDB /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +227,10 @@
 			isa = PBXGroup;
 			children = (
 				F78BACE82916DF0E001FC551 /* CommentTableViewCell.swift */,
+				F75508FB291F456E00E3827F /* ExploreBannerCollectionViewCell.swift */,
+				F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */,
+				F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */,
+				F7550901291F459200E3827F /* ExploreHashtagCollectionViewCell.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -376,16 +388,19 @@
 				F77498632914E9C4000B7DDB /* DatabaseManager.swift in Sources */,
 				F7E10846291EC36100A4FC17 /* ExploreSection.swift in Sources */,
 				F78BACE92916DF0E001FC551 /* CommentTableViewCell.swift in Sources */,
+				F7550900291F458700E3827F /* ExploreUserCollectionViewCell.swift in Sources */,
 				F77498482914E8B8000B7DDB /* ExploreViewController.swift in Sources */,
 				F77498502914E8F1000B7DDB /* UserListViewController.swift in Sources */,
 				F7E10850291EC53E00A4FC17 /* ExploreHashtagViewModel.swift in Sources */,
 				F77498562914E912000B7DDB /* SettingsViewController.swift in Sources */,
+				F75508FC291F456E00E3827F /* ExploreBannerCollectionViewCell.swift in Sources */,
 				F774985D2914E97D000B7DDB /* PostViewController.swift in Sources */,
 				F774984A2914E8C5000B7DDB /* CameraViewController.swift in Sources */,
 				F7E1084E291EC52400A4FC17 /* ExplorePostViewModel.swift in Sources */,
 				F7E10848291EC38B00A4FC17 /* ExploreCell.swift in Sources */,
 				F7B3BE7B29160D15006C3A5E /* CommentsViewController.swift in Sources */,
 				F7E1084C291EC4FE00A4FC17 /* ExploreBannerViewModel.swift in Sources */,
+				F7550902291F459200E3827F /* ExploreHashtagCollectionViewCell.swift in Sources */,
 				F7E10852291EC54E00A4FC17 /* ExploreUserViewModel.swift in Sources */,
 				F77498582914E92E000B7DDB /* TabBarViewController.swift in Sources */,
 				F7B3BE7F2916175C006C3A5E /* User.swift in Sources */,
@@ -396,6 +411,7 @@
 				F7B3BE7D29161732006C3A5E /* PostComment.swift in Sources */,
 				F77498522914E900000B7DDB /* SignInViewController.swift in Sources */,
 				F7EB3D912915A994001C1D9F /* PostModel.swift in Sources */,
+				F75508FE291F457E00E3827F /* ExplorePostCollectionViewCell.swift in Sources */,
 				F774984E2914E8DB000B7DDB /* ProfileViewController.swift in Sources */,
 				F77498612914E9A6000B7DDB /* StorageManager.swift in Sources */,
 				F78606552914BFE700C4D7C4 /* AppDelegate.swift in Sources */,
