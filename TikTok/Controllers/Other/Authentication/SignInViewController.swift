@@ -26,7 +26,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     private let signInButton = AuthButton(type: .signIn, title: nil)
     private let forgotPasswordButton = AuthButton(type: .plain, title: "Forgot Password")
-    private let signUpButton = AuthButton(type: .signUp, title: "New User? Create Account")
+    private let signUpButton = AuthButton(type: .plain, title: "New User? Create Account")
     
     //MARK: - Lifecycle
     
@@ -34,12 +34,14 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         title = "Sign In"
         view.backgroundColor = .systemBackground
-        
         addSubviews()
         configureFields()
-        
-        
         configureButtons()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        emailField.becomeFirstResponder()
     }
     
     func configureFields() {
@@ -87,6 +89,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             width: imageSize,
             height: imageSize
         )
+        
         emailField.frame = CGRect (x: 20, y: logoImageView.bottom + 20, width: view.width - 40, height: 55)
         passwordField.frame = CGRect (x: 20, y: emailField.bottom + 20, width: view.width - 40, height: 55)
         signInButton.frame = CGRect(x: 20, y: passwordField.bottom + 20, width: view.width - 40, height: 55)
@@ -105,7 +108,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
               !password.trimmingCharacters(in: .whitespaces).isEmpty,
               password.count >= 6 else {
             
-            let alert = UIAlertController(title: "Whoops...", message: "Please enter a valid email and password to sign in.", preferredStyle: .alert)
+            let alert = UIAlertController(
+                title: "Whoops...",
+                message: "Please enter a valid email and password to sign in.",
+                preferredStyle: .alert
+            )
             alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
             present(alert, animated: true)
             
@@ -120,7 +127,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
                 // show error
             }
         }
-        
     }
     
     @objc func didTapSignUp() {
@@ -134,6 +140,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         didTapKeyboardDone()
         guard let url = URL(string: "https://www.tiktok.com/forgot-password") else { return }
         let vc = SFSafariViewController(url: url)
-        present(vc, animated: true)                 // present Safari Windown (can't push)
+        present(vc, animated: true)                 // present Safari Window (can't push)
     }
 }
