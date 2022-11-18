@@ -39,23 +39,14 @@ class ExploreViewController: UIViewController {
         searchBar.delegate = self
     }
     
-    func configureModels() {
-        var cells = [ExploreCell]()
-        for _ in 0...100 {
-            let cell = ExploreCell.banner(
-                viewModel: ExploreBannerViewModel(
-                    image: UIImage(named: "image1"), title: "OneTwo", handler: {
-                        
-                    }
-                )
-            )
-            cells.append(cell)
-        }
+    private func configureModels() {
         // Banner
         sections.append(
             ExploreSection(
                 type: .banners,
-                cells: cells
+                cells: ExploreManager.shared.getExploreBanners().compactMap({
+                    return ExploreCell.banner(viewModel: $0)
+                })
             )
         )
         

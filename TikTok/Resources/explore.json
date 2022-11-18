@@ -1,0 +1,142 @@
+{
+    "banners": [
+        {
+            "id": "nature",
+            "image": "banner1",
+            "title": "Nature",
+            "action": "hashtag"
+        },
+        {
+            "id": "jason_derulo",
+            "image": "banner2",
+            "title": "Jason Derulo",
+            "action": "user"
+        },
+        {
+            "id": "newyorkcity",
+            "image": "banner3",
+            "title": "New York City",
+            "action": "hashtag"
+        },
+        {
+            "id": "savagelovedance",
+            "image": "banner4",
+            "title": "Savage Love Dance",
+            "action": "post"
+        }
+    ],
+    "trendingPosts": [
+        {
+            "id": "1",
+            "image": "trending1",
+            "caption": "2022 has been crazy!"
+        },
+        {
+            "id": "2",
+            "image": "trending2",
+            "caption": "Australia trip 2022"
+        },
+        {
+            "id": "3",
+            "image": "trending3",
+            "caption": "What do you actually want!"
+        },
+        {
+            "id": "4",
+            "image": "trending4",
+            "caption": "Follow on Instagram!"
+        }
+    ],
+    "creators": [
+        {
+            "id": "user1",
+            "image": "creator1",
+            "username": "wizardexiles",
+            "followers_count": 1200
+        },
+        {
+            "id": "user2",
+            "image": "creator2",
+            "username": "vladimirkratinov",
+            "followers_count": 168947
+        },
+        {
+            "id": "user3",
+            "image": "creator3",
+            "username": "generalRobot",
+            "followers_count": 6745
+        },
+        {
+            "id": "user4",
+            "image": "creator4",
+            "username": "BotTinker",
+            "followers_count": 74589
+        }
+    ],
+    "recentPosts": [
+        {
+            "id": "1",
+            "image": "trending1",
+            "caption": "2022 has been crazy!"
+        },
+        {
+            "id": "2",
+            "image": "trending2",
+            "caption": "Australia trip 2022"
+        },
+        {
+            "id": "3",
+            "image": "trending3",
+            "caption": "What do you actually want!"
+        },
+        {
+            "id": "4",
+            "image": "trending4",
+            "caption": "Follow on Instagram!"
+        }
+    ],
+    "hashtags": [
+        {
+            "image": "tag.circle",
+            "tag": "yearInReview",
+            "count": 1000
+        },
+        {
+            "image": "tag.circle",
+            "tag": "summertime",
+            "count": 2000
+        },
+        {
+            "image": "tag.circle",
+            "tag": "2022best",
+            "count": 3000
+        },
+        {
+            "image": "tag.circle",
+            "tag": "popular",
+            "count": 4000
+        }
+    ],
+    "popular": [
+        {
+            "id": "1",
+            "image": "trending1",
+            "caption": "2022 has been crazy!"
+        },
+        {
+            "id": "2",
+            "image": "trending2",
+            "caption": "Australia trip 2022"
+        },
+        {
+            "id": "3",
+            "image": "trending3",
+            "caption": "What do you actually want!"
+        },
+        {
+            "id": "4",
+            "image": "trending4",
+            "caption": "Follow on Instagram!"
+        }
+    ]
+}
