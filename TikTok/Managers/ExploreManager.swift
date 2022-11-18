@@ -61,6 +61,27 @@ final class ExploreManager {
         }
     }
     
+    public func getExploreTrendingPosts() -> [ExplorePostViewModel] {
+        guard let exploreData = parseExploreData() else {
+            return []
+        }
+        
+        return exploreData.trendingPosts.compactMap { model in
+            ExplorePostViewModel(
+                thumbnailImage: UIImage(named: model.image),
+                caption: model.caption
+            ) { [weak self] in
+                DispatchQueue.main.async {
+                    // handler:
+                    // use id to fetch post from firebase
+                    let postID = model.id
+                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    self?.delegate?.pushViewController(vc)
+                }
+            }
+        }
+    }
+    
     public func getExploreCreators() -> [ExploreUserViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
@@ -102,12 +123,12 @@ final class ExploreManager {
         }
     }
     
-    public func getExploreTrendingPosts() -> [ExplorePostViewModel] {
+    public func getExplorePopularPosts() -> [ExplorePostViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
         
-        return exploreData.trendingPosts.compactMap { model in
+        return exploreData.popular.compactMap { model in
             ExplorePostViewModel(
                 thumbnailImage: UIImage(named: model.image),
                 caption: model.caption
@@ -129,27 +150,6 @@ final class ExploreManager {
         }
         
         return exploreData.recentPosts.compactMap { model in
-            ExplorePostViewModel(
-                thumbnailImage: UIImage(named: model.image),
-                caption: model.caption
-            ) { [weak self] in
-                DispatchQueue.main.async {
-                    // handler:
-                    // use id to fetch post from firebase
-                    let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
-                    self?.delegate?.pushViewController(vc)
-                }
-            }
-        }
-    }
-    
-    public func getExplorePopularPosts() -> [ExplorePostViewModel] {
-        guard let exploreData = parseExploreData() else {
-            return []
-        }
-        
-        return exploreData.popular.compactMap { model in
             ExplorePostViewModel(
                 thumbnailImage: UIImage(named: model.image),
                 caption: model.caption

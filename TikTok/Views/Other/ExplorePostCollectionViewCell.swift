@@ -19,7 +19,10 @@ class ExplorePostCollectionViewCell: UICollectionViewCell {
     
     private let captionLabel: UILabel = {
     let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.adjustsFontSizeToFitWidth = true
+        label.font = .systemFont(ofSize: 16, weight: .medium)
         return label
     }()
     

@@ -29,70 +29,102 @@
         {
             "id": "1",
             "image": "trending1",
-            "caption": "2022 has been crazy!"
+            "caption": "trending1"
         },
         {
             "id": "2",
             "image": "trending2",
-            "caption": "Australia trip 2022"
+            "caption": "trending2"
         },
         {
             "id": "3",
             "image": "trending3",
-            "caption": "What do you actually want!"
+            "caption": "trending3"
         },
         {
             "id": "4",
             "image": "trending4",
-            "caption": "Follow on Instagram!"
+            "caption": "trending4"
+        },
+        {
+            "id": "5",
+            "image": "trending5",
+            "caption": "trending5"
+        },
+        {
+            "id": "6",
+            "image": "trending6",
+            "caption": "trending6"
+        },
+        {
+            "id": "7",
+            "image": "trending7",
+            "caption": "trending7"
+        },
+        {
+            "id": "8",
+            "image": "trending8",
+            "caption": "trending8"
+        },
+        {
+            "id": "9",
+            "image": "trending9",
+            "caption": "trending9"
+        },
+        {
+            "id": "10",
+            "image": "trending10",
+            "caption": "trending10"
         }
     ],
     "creators": [
         {
             "id": "user1",
             "image": "creator1",
-            "username": "wizardexiles",
+            "username": "JulianZhou789",
             "followers_count": 1200
         },
         {
             "id": "user2",
             "image": "creator2",
-            "username": "vladimirkratinov",
+            "username": "Chillin.Raptor",
             "followers_count": 168947
         },
         {
             "id": "user3",
             "image": "creator3",
-            "username": "generalRobot",
+            "username": "Miko_Chan",
             "followers_count": 6745
         },
         {
             "id": "user4",
             "image": "creator4",
-            "username": "BotTinker",
+            "username": "Tanuka.Izumi",
             "followers_count": 74589
+        },
+        {
+            "id": "user5",
+            "image": "creator5",
+            "username": "Lili.Chou",
+            "followers_count": 15478
+        },
+        {
+            "id": "user6",
+            "image": "creator6",
+            "username": "Cosplay_Fan",
+            "followers_count": 456712
         }
-    ],
-    "recentPosts": [
-        {
-            "id": "1",
-            "image": "trending1",
-            "caption": "2022 has been crazy!"
+        ,{
+            "id": "user7",
+            "image": "creator7",
+            "username": "MickJagger",
+            "followers_count": 999666
         },
         {
-            "id": "2",
-            "image": "trending2",
-            "caption": "Australia trip 2022"
-        },
-        {
-            "id": "3",
-            "image": "trending3",
-            "caption": "What do you actually want!"
-        },
-        {
-            "id": "4",
-            "image": "trending4",
-            "caption": "Follow on Instagram!"
+            "id": "user8",
+            "image": "creator8",
+            "username": "Riujin",
+            "followers_count": 1237456
         }
     ],
     "hashtags": [
@@ -117,28 +149,113 @@
             "count": 4000
         }
     ],
+    
     "popular": [
         {
             "id": "1",
-            "image": "trending1",
-            "caption": "2022 has been crazy!"
+            "image": "popular1",
+            "caption": "popular1"
         },
         {
             "id": "2",
-            "image": "trending2",
-            "caption": "Australia trip 2022"
+            "image": "popular2",
+            "caption": "popular2"
         },
         {
             "id": "3",
-            "image": "trending3",
-            "caption": "What do you actually want!"
+            "image": "popular3",
+            "caption": "popular3"
         },
         {
             "id": "4",
-            "image": "trending4",
-            "caption": "Follow on Instagram!"
+            "image": "popular4",
+            "caption": "popular4"
+        },
+        {
+            "id": "5",
+            "image": "popular5",
+            "caption": "popular5"
+        },
+        {
+            "id": "6",
+            "image": "popular6",
+            "caption": "popular6"
+        },
+        {
+            "id": "7",
+            "image": "popular7",
+            "caption": "popular7"
+        },
+        {
+            "id": "8",
+            "image": "popular8",
+            "caption": "popular8"
+        },
+        {
+            "id": "9",
+            "image": "popular9",
+            "caption": "popular9"
+        },
+        {
+            "id": "10",
+            "image": "popular10",
+            "caption": "popular10"
         }
     ],
+    
+    "recentPosts": [
+        {
+            "id": "1",
+            "image": "recent1",
+            "caption": "recent1"
+        },
+        {
+            "id": "2",
+            "image": "recent2",
+            "caption": "recent2"
+        },
+        {
+            "id": "3",
+            "image": "recent3",
+            "caption": "recent3"
+        },
+        {
+            "id": "4",
+            "image": "recent4",
+            "caption": "recent4"
+        },
+        {
+            "id": "5",
+            "image": "recent5",
+            "caption": "recent5"
+        },
+        {
+            "id": "6",
+            "image": "recent6",
+            "caption": "recent6"
+        },
+        {
+            "id": "7",
+            "image": "recent7",
+            "caption": "recent7"
+        },
+        {
+            "id": "8",
+            "image": "recent8",
+            "caption": "recent8"
+        },
+        {
+            "id": "9",
+            "image": "recent9",
+            "caption": "recent9"
+        },
+        {
+            "id": "10",
+            "image": "recent10",
+            "caption": "recent10"
+        }
+    ],
+    
     "recommended": [
         {
             "id": "1",
