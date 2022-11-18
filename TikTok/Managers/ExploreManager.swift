@@ -29,7 +29,7 @@ final class ExploreManager {
             return nil
         }
         
-        print(path)
+//        print(path)
         
         do {
             if #available(iOS 16.0, *) {

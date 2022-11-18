@@ -1,27 +1,27 @@
 {
     "banners": [
         {
-            "id": "nature",
+            "id": "space_invaders",
             "image": "banner1",
-            "title": "Nature",
+            "title": "Space Invaders",
             "action": "hashtag"
         },
         {
-            "id": "jason_derulo",
+            "id": "rubiks_cube",
             "image": "banner2",
-            "title": "Jason Derulo",
+            "title": "Rubik's Cube",
             "action": "user"
         },
         {
-            "id": "newyorkcity",
+            "id": "evening",
             "image": "banner3",
-            "title": "New York City",
+            "title": "Evening",
             "action": "hashtag"
         },
         {
-            "id": "savagelovedance",
+            "id": "wendys_cyberpunk",
             "image": "banner4",
-            "title": "Savage Love Dance",
+            "title": "Wendy's Cyberpunk",
             "action": "post"
         }
     ],
