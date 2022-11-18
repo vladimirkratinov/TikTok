@@ -28,6 +28,9 @@ final class ExploreManager {
         guard let path = Bundle.main.path(forResource: "explore", ofType: "json") else {
             return nil
         }
+        
+        print(path)
+        
         do {
             if #available(iOS 16.0, *) {
                 let url = URL(filePath: path)

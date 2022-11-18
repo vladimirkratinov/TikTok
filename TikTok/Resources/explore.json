@@ -138,5 +138,27 @@
             "image": "trending4",
             "caption": "Follow on Instagram!"
         }
+    ],
+    "recommended": [
+        {
+            "id": "1",
+            "image": "trending1",
+            "caption": "2022 has been crazy!"
+        },
+        {
+            "id": "2",
+            "image": "trending2",
+            "caption": "Australia trip 2022"
+        },
+        {
+            "id": "3",
+            "image": "trending3",
+            "caption": "What do you actually want!"
+        },
+        {
+            "id": "4",
+            "image": "trending4",
+            "caption": "Follow on Instagram!"
+        }
     ]
 }
