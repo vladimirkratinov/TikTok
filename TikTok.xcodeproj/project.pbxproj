@@ -211,9 +211,8 @@
 		F77498462914E89C000B7DDB /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				F7E9BBCA2927FD2300D10468 /* Authentication */,
 				F774984F2914E8F1000B7DDB /* UserListViewController.swift */,
-				F77498512914E900000B7DDB /* SignInViewController.swift */,
-				F77498532914E90A000B7DDB /* SignUpViewController.swift */,
 				F77498552914E912000B7DDB /* SettingsViewController.swift */,
 				F774985C2914E97D000B7DDB /* PostViewController.swift */,
 				F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */,
@@ -271,6 +270,15 @@
 				F78606622914BFE700C4D7C4 /* Info.plist */,
 			);
 			path = TikTok;
+			sourceTree = "<group>";
+		};
+		F7E9BBCA2927FD2300D10468 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				F77498512914E900000B7DDB /* SignInViewController.swift */,
+				F77498532914E90A000B7DDB /* SignUpViewController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
