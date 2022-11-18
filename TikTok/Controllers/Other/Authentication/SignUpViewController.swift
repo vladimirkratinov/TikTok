@@ -92,12 +92,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             height: imageSize
         )
         
-        usernameField.frame = CGRect (x: 20, y: logoImageView.bottom + 20, width: view.width - 40, height: 55)
-        emailField.frame = CGRect (x: 20, y: usernameField.bottom + 20, width: view.width - 40, height: 55)
-        passwordField.frame = CGRect(x: 20, y: emailField.bottom + 20, width: view.width - 40, height: 55)
-        
-        signUpButton.frame = CGRect(x: 20, y: passwordField.bottom + 20, width: view.width - 40, height: 55)
-        termsButton.frame = CGRect(x: 20, y: signUpButton.bottom + 40, width: view.width - 40, height: 55)
+        usernameField.frame =   CGRect(x: 20, y: logoImageView.bottom + 20, width: view.width - 40, height: 55)
+        emailField.frame =      CGRect(x: 20, y: usernameField.bottom + 20, width: view.width - 40, height: 55)
+        passwordField.frame =   CGRect(x: 20, y: emailField.bottom + 20, width: view.width - 40, height: 55)
+        signUpButton.frame =    CGRect(x: 20, y: passwordField.bottom + 20, width: view.width - 40, height: 55)
+        termsButton.frame =     CGRect(x: 20, y: signUpButton.bottom + 20, width: view.width - 40, height: 55)
     }
     
     // Actions:
@@ -125,8 +124,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        AuthManager.shared.signUp(with: username, emailAddress: email, password: password) { success in
-            
+        AuthManager.shared.signUp(with: username, emailAddress: email, password: password) { [weak self] success in
+            DispatchQueue.main.async {
+                if success {
+                    // Signed Up:
+                    self?.dismiss(animated: true)
+                    
+                } else {
+                    let alert = UIAlertController(title: "Sign Up Failed",
+                                                  message: "Something went wrong when trying to register. Please try again.",
+                                                  preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(alert, animated: true)
+                }
+            }
         }
         
     }

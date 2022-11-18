@@ -90,11 +90,11 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             height: imageSize
         )
         
-        emailField.frame = CGRect (x: 20, y: logoImageView.bottom + 20, width: view.width - 40, height: 55)
-        passwordField.frame = CGRect (x: 20, y: emailField.bottom + 20, width: view.width - 40, height: 55)
-        signInButton.frame = CGRect(x: 20, y: passwordField.bottom + 20, width: view.width - 40, height: 55)
-        forgotPasswordButton.frame = CGRect(x: 20, y: signInButton.bottom + 40, width: view.width - 40, height: 55)
-        signUpButton.frame = CGRect(x: 20, y: forgotPasswordButton.bottom + 20, width: view.width - 40, height: 55)
+        emailField.frame =              CGRect(x: 20, y: logoImageView.bottom + 20, width: view.width - 40, height: 55)
+        passwordField.frame =           CGRect(x: 20, y: emailField.bottom + 20, width: view.width - 40, height: 55)
+        signInButton.frame =            CGRect(x: 20, y: passwordField.bottom + 20, width: view.width - 40, height: 55)
+        forgotPasswordButton.frame =    CGRect(x: 20, y: signInButton.bottom + 20, width: view.width - 40, height: 55)
+        signUpButton.frame =            CGRect(x: 20, y: forgotPasswordButton.bottom + 10, width: view.width - 40, height: 55)
     }
     
     // Actions:
@@ -119,12 +119,23 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        AuthManager.shared.signIn(with: email, password: password) { loggedIn in
-            if loggedIn {
-                // dismiss Sign In
-            }
-            else {
-                // show error
+        AuthManager.shared.signIn(with: email, password: password) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    // success
+                    self?.dismiss(animated: true)
+                case .failure(let error):
+                    print(error)
+                    let alert = UIAlertController(
+                        title: "Sign In Failed",
+                        message: "Please check your email and password to ty again.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                    self?.present(alert, animated: true)
+                    self?.passwordField.text = nil  // empty password field in case of failure
+                }
             }
         }
     }
