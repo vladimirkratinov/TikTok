@@ -28,10 +28,10 @@ class ExplorePostCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.clipsToBounds = true
         contentView.addSubview(thumbnailImageView)
         contentView.addSubview(captionLabel)
         contentView.layer.cornerRadius = 8
+        contentView.clipsToBounds = true
         contentView.layer.masksToBounds = true
     }
     
