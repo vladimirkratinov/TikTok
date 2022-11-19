@@ -97,7 +97,7 @@ class PostViewController: UIViewController {
             button.frame = CGRect(
                 x: view.width-size-10,
                 y: yStart + (CGFloat(index) * 10) + (CGFloat(index) * size),
-                width: size,
+                width: size + 3,
                 height: size
             )
         }

@@ -29,23 +29,35 @@ class CameraViewController: UIViewController {
         return view
     }()
     
+    private let recordButton = RecordButton()
+    private var previewLayer: AVPlayerLayer?
+    var recordedVideoURL: URL?
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
         view.addSubview(cameraView)
+        view.addSubview(recordButton)
+        
         setUPCamera()
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .close,
             target: self,
             action: #selector(didTapClose)
         )
+        
+        recordButton.addTarget(self, action: #selector(didTapRecord), for: .touchUpInside)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         cameraView.frame = view.bounds
+        let size: CGFloat = 70
+        recordButton.frame = CGRect(x: (view.width - size)/2, y: view.height - view.safeAreaInsets.bottom - size - 5, width: size, height: size)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,10 +65,46 @@ class CameraViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    @objc func didTapRecord() {
+        if captureOutput.isRecording {
+            // stop recording
+            recordButton.toggle(for: .notRecording)
+            captureOutput.stopRecording()
+        }
+        else {
+            guard var url = FileManager.default.urls(
+                for: .documentDirectory,
+                in: .userDomainMask
+            ).first else {
+                return
+            }
+            
+            if #available(iOS 14.0, *) {
+                url.appendPathComponent("video.mp4", conformingTo: .url)
+                try? FileManager.default.removeItem(at: url)
+                recordButton.toggle(for: .recording)
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            captureOutput.startRecording(to: url,
+                                         recordingDelegate: self)
+        }
+    }
+    
     @objc func didTapClose() {
-        captureSession.stopRunning()
-        tabBarController?.tabBar.isHidden = false
-        tabBarController?.selectedIndex = 0
+        navigationItem.rightBarButtonItem = nil
+        recordButton.isHidden = false
+        if previewLayer != nil  {
+            previewLayer?.removeFromSuperlayer()
+            previewLayer = nil
+        }
+        else {
+            captureSession.stopRunning()
+            tabBarController?.tabBar.isHidden = false
+            tabBarController?.selectedIndex = 0
+        }
+        
     }
     
     func setUPCamera() {
@@ -95,7 +143,12 @@ class CameraViewController: UIViewController {
         }
         
         // Enable camera start
-        captureSession.startRunning()
+        // [AVCaptureSession startRunning] should be called from background thread.
+//        self.captureSession.startRunning()
+        
+        DispatchQueue.global(qos: .background).async {
+            self.captureSession.startRunning()
+        }
     }
 }
 
@@ -103,9 +156,34 @@ extension CameraViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         
         guard error == nil else {
+            let alert = UIAlertController(title: "Whoops",
+                                          message: "Something went wrong when recording video.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            present(alert, animated: true)
             return
         }
         
         print("Finished recording to url: \(outputFileURL.absoluteString)")
+        
+        recordedVideoURL = outputFileURL
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(didTapNext))
+        
+        let player = AVPlayer(url: outputFileURL)
+        previewLayer = AVPlayerLayer(player: player)
+        previewLayer?.videoGravity = .resizeAspectFill
+        previewLayer?.frame = cameraView.bounds
+        guard let previewLayer = previewLayer else {
+            return
+        }
+        
+        recordButton.isHidden = true
+        cameraView.layer.addSublayer(previewLayer)
+        previewLayer.player?.play()
+    }
+    
+    @objc func didTapNext() {
+        // Push caption controller
     }
 }
