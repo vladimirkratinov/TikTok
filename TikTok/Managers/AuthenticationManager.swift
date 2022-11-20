@@ -44,6 +44,13 @@ final class AuthManager {
                 return
             }
             
+            DatabaseManager.shared.getUsername(for: email) { username in
+                if let username = username {
+                    UserDefaults.standard.setValue(username, forKey: "username")
+                    print("Got username: \(username)")
+                }
+            }
+            
             // Successful Sign In:
             completion(.success(email))
         }
@@ -61,6 +68,7 @@ final class AuthManager {
                 completion(false)
                 return
             }
+            UserDefaults.standard.setValue(username, forKey: "username")
             
             DatabaseManager.shared.insertUser(with: emailAddress, username: username, completion: completion)
         }
