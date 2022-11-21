@@ -18,6 +18,7 @@ class CaptionViewController: UIViewController {
         textView.backgroundColor = .secondarySystemBackground
         textView.layer.cornerRadius = 8
         textView.layer.masksToBounds = true
+        textView.font = .systemFont(ofSize: 16, weight: .medium)
         return textView
     }()
     
