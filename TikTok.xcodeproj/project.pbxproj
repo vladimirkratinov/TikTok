@@ -13,6 +13,7 @@
 		F75508FE291F457E00E3827F /* ExplorePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */; };
 		F7550900291F458700E3827F /* ExploreUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */; };
 		F7550902291F459200E3827F /* ExploreHashtagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7550901291F459200E3827F /* ExploreHashtagCollectionViewCell.swift */; };
+		F75BDE68292B42C40074CBE4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75BDE67292B42C40074CBE4 /* Notifications.swift */; };
 		F77498482914E8B8000B7DDB /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498472914E8B8000B7DDB /* ExploreViewController.swift */; };
 		F774984A2914E8C5000B7DDB /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77498492914E8C5000B7DDB /* CameraViewController.swift */; };
 		F774984C2914E8D2000B7DDB /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F774984B2914E8D2000B7DDB /* NotificationsViewController.swift */; };
@@ -63,6 +64,7 @@
 		F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		F7550901291F459200E3827F /* ExploreHashtagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHashtagCollectionViewCell.swift; sourceTree = "<group>"; };
+		F75BDE67292B42C40074CBE4 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		F77498472914E8B8000B7DDB /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		F77498492914E8C5000B7DDB /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F774984B2914E8D2000B7DDB /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				F7E10845291EC36100A4FC17 /* ExploreSection.swift */,
 				F7E10847291EC38B00A4FC17 /* ExploreCell.swift */,
 				F7E10849291EC3B600A4FC17 /* ExploreSectionType.swift */,
+				F75BDE67292B42C40074CBE4 /* Notifications.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F75BDE68292B42C40074CBE4 /* Notifications.swift in Sources */,
 				F7E9BBCE292802FE00D10468 /* AuthButton.swift in Sources */,
 				F7E9BBCC292802EB00D10468 /* AuthField.swift in Sources */,
 				F77498672914E9F1000B7DDB /* HapticsManager.swift in Sources */,

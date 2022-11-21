@@ -32,6 +32,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return spinner
     }()
     
+    var notifications = [Notification]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -56,7 +58,27 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func fetchNotifications() {
+        DatabaseManager.shared.getNotifications { [weak self] notifications in
+            DispatchQueue.main.async {
+                self?.spinner.stopAnimating()
+                self?.spinner.isHidden = true
+                self?.notifications = notifications
+                self?.updateUI()
+            }
+        }
+    }
+    
+    func updateUI() {
+        if notifications.isEmpty {
+            notificationsLabel.isHidden = false
+            tableView.isHidden = true
+        }
+        else {
+            notificationsLabel.isHidden = true
+            tableView.isHidden = false
+        }
         
+        tableView.reloadData()
     }
     
     // Table View
@@ -66,12 +88,13 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return notifications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = notifications[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Hello"
+        cell.textLabel?.text = model.text
         return cell
     }
 }
