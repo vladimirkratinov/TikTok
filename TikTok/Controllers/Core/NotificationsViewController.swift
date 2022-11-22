@@ -165,11 +165,16 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         let model = notifications[indexPath.row]
         model.isHidden = true
         
-        self.notifications = notifications.filter { $0.isHidden == false }  // filtering hidden data.
-        
-        tableView.beginUpdates()
-        tableView.deleteRows(at: [indexPath], with: .none)
-        tableView.endUpdates()
+        DatabaseManager.shared.markNotificationAsHidden(notificationID: model.identifier) { [weak self] success in
+            if success {
+                DispatchQueue.main.async {
+                    self?.notifications = self?.notifications.filter { $0.isHidden == false } ?? []  // filtering hidden data.
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: .none)
+                    tableView.endUpdates()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
