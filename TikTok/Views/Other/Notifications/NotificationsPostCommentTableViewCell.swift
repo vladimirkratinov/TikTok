@@ -37,8 +37,18 @@ class NotificationsPostCommentTableViewCell: UITableViewCell {
         contentView.addSubview(postThumbnailImageView)
         contentView.addSubview(label)
         contentView.addSubview(dateLabel)
-        
         selectionStyle = .none
+        
+        postThumbnailImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapPost))
+        postThumbnailImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc func didTapPost() {
+        guard let id = postID else {
+            return
+        }
+        delegate?.notificationsPostLikeTableViewCell(self, didTapPostWith: id)
     }
     
     required init?(coder: NSCoder) {
