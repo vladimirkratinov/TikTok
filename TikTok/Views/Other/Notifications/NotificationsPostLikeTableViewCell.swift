@@ -37,6 +37,8 @@ class NotificationsPostLikeTableViewCell: UITableViewCell {
         contentView.addSubview(postThumbnailImageView)
         contentView.addSubview(label)
         contentView.addSubview(dateLabel)
+        
+        selectionStyle = .none
     }
     
     required init?(coder: NSCoder) {
