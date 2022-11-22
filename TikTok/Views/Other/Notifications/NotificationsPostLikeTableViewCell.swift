@@ -45,7 +45,7 @@ class NotificationsPostLikeTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-                
+        
         postThumbnailImageView.frame = CGRect(
             x: contentView.width-50,
             y: 3,
@@ -86,7 +86,8 @@ class NotificationsPostLikeTableViewCell: UITableViewCell {
     }
     
     func configure(with postFileName: String, model: Notification) {
-        postThumbnailImageView.image = nil
-        label.text = nil
+        postThumbnailImageView.image = UIImage(named: "logo")
+        label.text = model.text
+        dateLabel.text = .date(with: model.date)
     }
 }
