@@ -134,6 +134,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     for: indexPath
                 )
             }
+            cell.delegate = self                                // postLike delegate
             cell.configure(with: postName, model: model)
             return cell
             
@@ -147,7 +148,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     for: indexPath
                 )
             }
-            cell.delegate = self                                // <- follow delegate!
+            cell.delegate = self                                // follow delegate
             cell.configure(with: username, model: model)
             return cell
             
@@ -161,6 +162,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     for: indexPath
                 )
             }
+            cell.delegate = self                                // postComment delegate
             cell.configure(with: postName, model: model)
             return cell
         }
@@ -217,5 +219,25 @@ extension NotificationsViewController: NotificationsUserFollowTableViewCellDeleg
         vc.title = username.uppercased()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+}
+
+extension NotificationsViewController: NotificationsPostLikeTableViewCellDelegate {
+    func notificationsPostLikeTableViewCell(_ cell: NotificationsPostLikeTableViewCell, didTapPostWith identifier: String) {
+        openPost(with: identifier)
+    }
+}
+
+extension NotificationsViewController: NotificationsPostCommentTableViewCellDelegate {
+    func notificationsPostCommentTableViewCellDelegate(_ cell: NotificationsPostCommentTableViewCell, didTapPostWith identifier: String) {
+        openPost(with: identifier)
+    }
+}
+
+extension NotificationsViewController {
+    func openPost(with identifier: String) {
+        // resolve the post model from database
+        let vc = PostViewController(model: PostModel(identifier: identifier))
+        vc.title = "Video"
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

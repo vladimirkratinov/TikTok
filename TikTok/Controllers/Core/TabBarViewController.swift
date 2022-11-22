@@ -61,6 +61,17 @@ class TabBarViewController: UITabBarController {
         cameraNav.navigationBar.shadowImage = UIImage()
         cameraNav.navigationBar.tintColor = .red
         
+        nav3.navigationBar.tintColor = .white // .label
+        if #available(iOS 14.0, *) {
+            nav1.navigationItem.backButtonDisplayMode = .minimal
+            nav2.navigationItem.backButtonDisplayMode = .minimal
+            nav3.navigationItem.backButtonDisplayMode = .minimal
+            nav4.navigationItem.backButtonDisplayMode = .minimal
+            cameraNav.navigationItem.backButtonDisplayMode = .minimal
+        } else {
+            // Fallback on earlier versions
+        }
+        
         nav1.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house"), tag: 1)
         nav2.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "safari"), tag: 2)
         camera.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "camera"), tag: 3)
