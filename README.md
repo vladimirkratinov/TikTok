@@ -2,11 +2,31 @@
 
 This is the sourse code repo for the tiktok app that I build in Swift.
 
-## Features
-- Feed
-- Explore
-- Notifications
-- Posting Videos (In progress)
+## Features: 🧙
+### Feed
+* UISegmentedControl
+* UIPageViewController
+* UINavigationController
+
+### Explore
+* Compositional CollectionView Layout
+* UISearchBar
+* ExploreBannerCollectionViewCell
+* ExplorePostCollectionViewCell
+* ExploreUserCollectionViewCell
+* ExploreHashtagCollectionViewCell
+
+### Notifications
+* NotificationsUserFollowTableViewCell
+* NotificationsPostLikeTableViewCell
+* NotificationsPostCommentTableViewCell
+* UIActivityIndicatorView
+* UIRefreshControl
+* UITapGestureRecognizer
+
+### Posting Videos
+* Custom Camera Module
+* AVFoundation
 - Profiles (In progress)
 
 ![Screen Shot 2022-11-21 at 9 46 28 PM](https://user-images.githubusercontent.com/78992253/203235012-83efce4a-0e84-4dc0-9724-c0fb354229de.png)
