@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol NotificationsPostLikeTableViewCellDelegate: AnyObject {
+    func notificationsPostLikeTableViewCell(_ cell: NotificationsPostLikeTableViewCell, didTapPostWith identifier: String)
+}
+
 class NotificationsPostLikeTableViewCell: UITableViewCell {
     static let identifier = "NotificationsPostLikeTableViewCell"
     

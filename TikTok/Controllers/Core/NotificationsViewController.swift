@@ -147,6 +147,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     for: indexPath
                 )
             }
+            cell.delegate = self                                // <- follow delegate!
             cell.configure(with: username, model: model)
             return cell
             
@@ -196,4 +197,25 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+}
+
+extension NotificationsViewController: NotificationsUserFollowTableViewCellDelegate {
+    func notificationsUserFollowTableViewCell(_ cell: NotificationsUserFollowTableViewCell, didTapFollowFor username: String) {
+        DatabaseManager.shared.follow(username: username) { success in
+            if !success {
+                //something failed.
+                print("something fa iled when followed.")
+            }
+        }
+    }
+    
+    func notificationsUserFollowTableViewCell(_ cell: NotificationsUserFollowTableViewCell, didTapAvatarFor username: String) {
+        let vc = ProfileViewController(
+            user: User(username: username,
+                       profilePictureURL: nil,
+                       identifier: "123"))
+        vc.title = username.uppercased()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
