@@ -21,10 +21,18 @@ enum NotificationType {
     }
 }
 
-struct Notification {
+class Notification {
+    var isHidden = false
     let text: String
     let type: NotificationType
     let date: Date
+    
+    init(isHidden: Bool = false, text: String, type: NotificationType, date: Date) {
+        self.isHidden = isHidden
+        self.text = text
+        self.type = type
+        self.date = date
+    }
     
     static func mockData() -> [Notification] {
         let first = Array(0...4).compactMap {

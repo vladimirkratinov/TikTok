@@ -149,6 +149,29 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else {
+            return
+        }
+        
+        let model = notifications[indexPath.row]
+        model.isHidden = true
+        
+        self.notifications = notifications.filter { $0.isHidden == false }  // filtering hidden data.
+        
+        tableView.beginUpdates()
+        tableView.deleteRows(at: [indexPath], with: .none)
+        tableView.endUpdates()
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
