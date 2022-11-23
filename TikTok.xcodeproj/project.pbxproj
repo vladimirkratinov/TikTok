@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		79CB007D1C74964DF68530BC /* Pods_TikTok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16520F764F5431D02892F32A /* Pods_TikTok.framework */; };
 		F72C220F292841C700692A1A /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F72C220E292841C700692A1A /* video.mp4 */; };
+		F733A98F292DDF2000AFCB3C /* ProfileHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F733A98E292DDF2000AFCB3C /* ProfileHeaderCollectionReusableView.swift */; };
 		F75508FC291F456E00E3827F /* ExploreBannerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FB291F456E00E3827F /* ExploreBannerCollectionViewCell.swift */; };
 		F75508FE291F457E00E3827F /* ExplorePostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */; };
 		F7550900291F458700E3827F /* ExploreUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */; };
@@ -63,6 +64,7 @@
 		1F672350753D094345C6F89C /* Pods-TikTok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.release.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.release.xcconfig"; sourceTree = "<group>"; };
 		981ABDC803A0F359E182F862 /* Pods-TikTok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TikTok.debug.xcconfig"; path = "Target Support Files/Pods-TikTok/Pods-TikTok.debug.xcconfig"; sourceTree = "<group>"; };
 		F72C220E292841C700692A1A /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		F733A98E292DDF2000AFCB3C /* ProfileHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		F75508FB291F456E00E3827F /* ExploreBannerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreBannerCollectionViewCell.swift; sourceTree = "<group>"; };
 		F75508FD291F457E00E3827F /* ExplorePostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePostCollectionViewCell.swift; sourceTree = "<group>"; };
 		F75508FF291F458700E3827F /* ExploreUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreUserCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				F75BDE6B292B46260074CBE4 /* Auth */,
 				F7EB67C029298F7A00A72049 /* RecordButton.swift */,
 				F75BDE71292B46920074CBE4 /* Notifications */,
+				F733A98E292DDF2000AFCB3C /* ProfileHeaderCollectionReusableView.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				F7E10852291EC54E00A4FC17 /* ExploreUserViewModel.swift in Sources */,
 				F77498582914E92E000B7DDB /* TabBarViewController.swift in Sources */,
 				F7B3BE7F2916175C006C3A5E /* User.swift in Sources */,
+				F733A98F292DDF2000AFCB3C /* ProfileHeaderCollectionReusableView.swift in Sources */,
 				F78606592914BFE700C4D7C4 /* HomeViewController.swift in Sources */,
 				F75BDE70292B46810074CBE4 /* NotificationsPostCommentTableViewCell.swift in Sources */,
 				F77498542914E90A000B7DDB /* SignUpViewController.swift in Sources */,

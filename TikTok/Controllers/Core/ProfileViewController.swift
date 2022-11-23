@@ -14,10 +14,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .systemBackground
         collection.showsVerticalScrollIndicator = false
-        collection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        
+        // register Supplementary View
+        collection.register(
+            ProfileHeaderCollectionReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier
+        )
+        
+        collection.register(
+            UICollectionViewCell.self,
+            forCellWithReuseIdentifier: "cell"
+        )
+        
         return collection
     }()
     
@@ -54,7 +67,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     @objc func didTapSettings() {
-        
+        let vc = SettingsViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -94,5 +108,24 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
+    }
+    
+    // define size of the header, and dequeue header
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard kind == UICollectionView.elementKindSectionHeader,
+                let header = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: kind,
+                    withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier,
+                    for: indexPath
+                ) as? ProfileHeaderCollectionReusableView
+        else {
+            return UICollectionReusableView()
+        }
+        
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: view.width, height: 300)
     }
 }
