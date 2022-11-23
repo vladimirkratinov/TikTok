@@ -21,6 +21,8 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     weak var delegate: ProfileHeaderCollectionReusableViewDelegate?
     
+    var viewModel: ProfileHeaderViewModel?
+    
     // Subviews:
     
     private let avatarImageView: UIImageView = {
@@ -88,6 +90,10 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        let avatarSize: CGFloat = 130
+        avatarImageView.frame = CGRect(x: (width - avatarSize)/2, y: 5, width: avatarSize, height: avatarSize)
+        avatarImageView.layer.cornerRadius = avatarImageView.height/2
     }
     
     // Actions:
@@ -102,5 +108,10 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     
     @objc func didTapFollowingButton() {
         delegate?.profileHeaderCollectionReusableView(self, didTapFollowingButtonWith: "")
+    }
+    
+    func configure(with viewModel: ProfileHeaderViewModel) {
+        self.viewModel = viewModel
+        // Set up Header
     }
 }
