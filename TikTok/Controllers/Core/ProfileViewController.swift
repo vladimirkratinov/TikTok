@@ -122,10 +122,39 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             return UICollectionReusableView()
         }
         
+        header.delegate = self
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: view.width, height: 300)
     }
+}
+
+extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapPrimaryButtonWith viewModel: String) {
+        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
+            return
+        }
+        
+        if self.user.username == currentUsername {
+            // Edit Profile
+        }
+        else {
+            // Follow/Unfollow current users profile that we are viewing
+        }
+    }
+    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapFollowersButtonWith viewModel: String) {
+        
+    }
+    
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapFollowingButtonWith viewModel: String) {
+        
+    }
+    
+    
 }

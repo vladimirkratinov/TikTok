@@ -76,12 +76,14 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         addSubview(followingButton)
     }
     
-    func configureButtons() {
-        
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configureButtons() {
+        primaryButton.addTarget(self, action: #selector(didTapPrimaryButton), for: .touchUpInside)
+        primaryButton.addTarget(self, action: #selector(didTapFollowersButton), for: .touchUpInside)
+        primaryButton.addTarget(self, action: #selector(didTapFollowingButton), for: .touchUpInside)
     }
     
     override func layoutSubviews() {
@@ -91,14 +93,14 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     // Actions:
     
     @objc func didTapPrimaryButton() {
-        
+        delegate?.profileHeaderCollectionReusableView(self, didTapPrimaryButtonWith: "")
     }
     
     @objc func didTapFollowersButton() {
-        
+        delegate?.profileHeaderCollectionReusableView(self, didTapFollowersButtonWith: "")
     }
     
     @objc func didTapFollowingButton() {
-        
+        delegate?.profileHeaderCollectionReusableView(self, didTapFollowingButtonWith: "")
     }
 }
