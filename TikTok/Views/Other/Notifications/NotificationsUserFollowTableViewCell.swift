@@ -155,5 +155,6 @@ class NotificationsUserFollowTableViewCell: UITableViewCell {
         avatarImageView.image = UIImage(named: "logo")
         label.text = model.text
         dateLabel.text = .date(with: model.date)
+        dateLabel.font = .systemFont(ofSize: 14)
     }
 }

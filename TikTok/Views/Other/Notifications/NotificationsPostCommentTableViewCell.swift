@@ -109,6 +109,7 @@ class NotificationsPostCommentTableViewCell: UITableViewCell {
         postThumbnailImageView.image = UIImage(named: "logo")
         label.text = model.text
         dateLabel.text = .date(with: model.date)
+        dateLabel.font = .systemFont(ofSize: 14)
         postID = postFileName
     }
 }

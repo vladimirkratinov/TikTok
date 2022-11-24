@@ -197,7 +197,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 60
     }
 }
 
@@ -206,7 +206,7 @@ extension NotificationsViewController: NotificationsUserFollowTableViewCellDeleg
         DatabaseManager.shared.follow(username: username) { success in
             if !success {
                 //something failed.
-                print("something fa iled when followed.")
+                print("something failed when followed.")
             }
         }
     }
