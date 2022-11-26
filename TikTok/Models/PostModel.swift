@@ -29,4 +29,8 @@ struct PostModel {
         }
         return posts
     }
+    
+    var videoChildPath: String {
+        return "videos/\(user.username.lowercased())/\(fileName)"
+    }
 }

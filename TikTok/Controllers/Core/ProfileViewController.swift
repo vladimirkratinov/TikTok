@@ -41,8 +41,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         )
         
         collection.register(
-            UICollectionViewCell.self,
-            forCellWithReuseIdentifier: "cell"
+            PostCollectionViewCell .self,
+            forCellWithReuseIdentifier: PostCollectionViewCell.identifier
         )
         
         return collection
@@ -83,6 +83,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 action: #selector(didTapSettings)
             )
         }
+        // fetch posts from the Firebase
         fetchPosts()
     }
     
@@ -114,7 +115,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // dequeue a cell:
         let postModel = posts[indexPath.row]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(        // guard let because it may be optional.
+            withReuseIdentifier: PostCollectionViewCell.identifier,
+            for: indexPath
+            
+        ) as? PostCollectionViewCell else { // Cast as given cell. Reason: Use the configure function.
+            return UICollectionViewCell()
+        }
+        
+        cell.configure(with: postModel)     // configure with PostModel
         cell.backgroundColor = .systemPink
         return cell
     }
