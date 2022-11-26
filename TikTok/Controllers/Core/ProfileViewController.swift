@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return false
     }
     
-    let user: User
+    var user: User
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -144,7 +144,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         header.delegate = self
         
         let viewModel = ProfileHeaderViewModel(
-            avatarImageURL: nil,
+            avatarImageURL: user.profilePictureURL,
             followerCount: 125,
             followingCount: 278,
             isFollowing: isCurrentUserProfile ? nil : false
@@ -221,8 +221,36 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
+        
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        ProgressHUD.show("Uploading")
+        
+        ProgressHUD.show("Uploading...")
+        
         // upload and update UI
+        StorageManager.shared.uploadProfilePicture(with: image) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let strongSelf = self else { return }
+                switch result {
+                case .success(let downloadURL):
+                    // cash download URL for profile picture
+                    UserDefaults.standard.setValue(downloadURL.absoluteString, forKey: "profile_picture_url")
+                    
+                    // reload header with user's picture
+                    strongSelf.user = User(
+                        username: strongSelf.user.username,
+                        profilePictureURL: downloadURL,
+                        identifier: strongSelf.user.username
+                    )
+                    
+                    ProgressHUD.showSucceed("Picture updated!")
+                    
+                    // reload data
+                    strongSelf.collectionView.reloadData()
+                    
+                case .failure:
+                    ProgressHUD.showError("Failed to upload profile picture.")
+                }
+            }
+        }
     }
 }

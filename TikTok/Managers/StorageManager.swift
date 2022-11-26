@@ -31,7 +31,9 @@ final class StorageManager {
     
     public func uploadProfilePicture(with image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         guard let username = UserDefaults.standard.string(forKey: "username") else { return }
+        
         guard let imageData = image.pngData() else { return }
+        
         let path = "profile_pictures/\(username)/picture.png"
         
         storageBucket.child(path).putData(imageData, metadata: nil) { _, error in
@@ -39,13 +41,16 @@ final class StorageManager {
                 completion(.failure(error))
             }
             else {
+                // get actual download URL
                 self.storageBucket.child(path).downloadURL { url, error in
                     guard let url = url else {
+                        // error handle
                         if let error = error {
                             completion(.failure(error))
                         }
                         return
                     }
+                    // success
                     completion(.success(url))
                 }
             }
