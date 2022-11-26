@@ -75,7 +75,11 @@ final class ExploreManager {
                     // handler:
                     // use id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user: User(
+                        username: "wizardexiles",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                    )))
                     self?.delegate?.pushViewController(vc)
                 }
             }
@@ -137,7 +141,11 @@ final class ExploreManager {
                     // handler:
                     // use id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user: User(
+                        username: "wizardexiles",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                    )))
                     self?.delegate?.pushViewController(vc)
                 }
             }
@@ -158,7 +166,11 @@ final class ExploreManager {
                     // handler:
                     // use id to fetch post from firebase
                     let postID = model.id
-                    let vc = PostViewController(model: PostModel(identifier: postID))
+                    let vc = PostViewController(model: PostModel(identifier: postID, user: User(
+                        username: "wizardexiles",
+                        profilePictureURL: nil,
+                        identifier: UUID().uuidString
+                    )))
                     self?.delegate?.pushViewController(vc)
                 }
             }

@@ -48,6 +48,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return collection
     }()
     
+    private var posts = [PostModel]()
+    
     //MARK: - Init
     
     init(user: User) {
@@ -81,11 +83,21 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
                 action: #selector(didTapSettings)
             )
         }
+        fetchPosts()
     }
     
     @objc func didTapSettings() {
         let vc = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func fetchPosts() {
+        DatabaseManager.shared.getPosts(for: user) { [weak self] postModels in
+            DispatchQueue.main.async {
+                self?.posts = postModels
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -95,16 +107,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     //MARK: - CollectionView
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return posts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // dequeue a cell:
+        let postModel = posts[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .systemPink
         return cell
