@@ -71,9 +71,7 @@ class TabBarViewController: UITabBarController {
         cameraNav.navigationBar.backgroundColor = .clear
         cameraNav.navigationBar.setBackgroundImage(UIImage(), for: .default)
         cameraNav.navigationBar.shadowImage = UIImage()
-        cameraNav.navigationBar.tintColor = .red
         
-        nav3.navigationBar.tintColor = .white // .label
         if #available(iOS 14.0, *) {
             nav1.navigationItem.backButtonDisplayMode = .minimal
             nav2.navigationItem.backButtonDisplayMode = .minimal
@@ -90,6 +88,11 @@ class TabBarViewController: UITabBarController {
         nav3.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 4)
         nav4.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "person.circle"), tag: 5)
         
+        nav1.navigationBar.tintColor =      .label
+        nav2.navigationBar.tintColor =      .label
+        cameraNav.navigationBar.tintColor = .label
+        nav3.navigationBar.tintColor =      .label
+        nav4.navigationBar.tintColor =      .label
         
         setViewControllers([nav1, nav2, cameraNav, nav3, nav4], animated: false)
     }

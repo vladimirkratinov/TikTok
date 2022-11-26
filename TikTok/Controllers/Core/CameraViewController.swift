@@ -142,11 +142,10 @@ class CameraViewController: UIViewController {
             cameraView.layer.addSublayer(layer)
         }
         
-        // Enable camera start
         // [AVCaptureSession startRunning] should be called from background thread.
-//        self.captureSession.startRunning()
         
         DispatchQueue.global(qos: .background).async {
+            // Enable camera start
             self.captureSession.startRunning()
         }
     }

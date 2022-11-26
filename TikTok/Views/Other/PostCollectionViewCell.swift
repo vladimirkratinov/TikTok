@@ -9,9 +9,13 @@ import UIKit
 import AVFoundation
 
 class PostCollectionViewCell: UICollectionViewCell {
-    // Show thumbnail of video and click&play video
-    // dequeue a cell for each video and this cell will be responsible
-    // for taking a post model and cell for item function, and converting it to the thumbnail
+    /*
+     1. Show a thumbnail of the video
+     2. Click & Play the video
+     3. Dequeue a cell for each video. The cell will be responsible for taking a post model
+        and a cell for item function, converting it to the thumbnail
+     */
+    
     
     static let identifier = "PostCollectionViewCell"
     
@@ -51,7 +55,6 @@ class PostCollectionViewCell: UICollectionViewCell {
              so if you can extend the app to save a thumbnail when it uploads, it will be ideal.
              However, this is undoubtedly an unacceptable solution.
              */
-            
             DispatchQueue.main.async {
                 switch result {
                 case .success(let url):
