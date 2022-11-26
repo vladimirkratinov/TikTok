@@ -36,12 +36,14 @@ class UserListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
         switch type {
         case .followers: title = "Followers"
         case .following: title = "Following"
         }
         
         view.addSubview(tableView)
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -51,7 +53,7 @@ class UserListViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.frame = view.bounds
     }
     
-    // TableView:
+    //MARK: - TableView:
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0

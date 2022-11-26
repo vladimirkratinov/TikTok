@@ -51,7 +51,10 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         title = user.username.uppercased()
         view.backgroundColor = .systemBackground
+        
         view.addSubview(collectionView)
+        
+        // assign delegate and data source
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -87,19 +90,21 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // dequeue a cell:
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .systemBlue
+        cell.backgroundColor = .systemPink
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // deselect item when tap on it:
         collectionView.deselectItem(at: indexPath, animated: true)
         // Open Post
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = (view.width - 12) / 3
-        return CGSize(width: width, height: width * 1.5) // 16:9 Aspect Ratio
+        let width: CGFloat = (view.width - 2) / 3        // add (- 2) to make visible third row
+        return CGSize(width: width, height: width * 1.5) // 16:9 Aspect Ratio Vertical
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -110,7 +115,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         return 1
     }
     
-    // define size of the header, and dequeue header
+    // define size of the header, and dequeue the header:
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader,
                 let header = collectionView.dequeueReusableSupplementaryView(
@@ -123,17 +128,26 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
         header.delegate = self
+        
+        let viewModel = ProfileHeaderViewModel(
+            avatarImageURL: nil,
+            followerCount: 125,
+            followingCount: 278,
+            isFollowing: false
+        )
+        
+        header.configure(with: viewModel)
         return header
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.width, height: 300)
     }
 }
 
 extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
-                                             didTapPrimaryButtonWith viewModel: String) {
+                                             didTapPrimaryButtonWith viewModel: ProfileHeaderViewModel) {
         guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
             return
         }
@@ -147,14 +161,13 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
-                                             didTapFollowersButtonWith viewModel: String) {
+                                             didTapFollowersButtonWith viewModel: ProfileHeaderViewModel) {
         
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
-                                             didTapFollowingButtonWith viewModel: String) {
+                                             didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
         
     }
-    
-    
+
 }
