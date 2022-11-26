@@ -15,6 +15,8 @@ protocol ProfileHeaderCollectionReusableViewDelegate: AnyObject {               
                                              didTapFollowersButtonWith viewModel: ProfileHeaderViewModel)
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel)
+    func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
+                                             didTapAvatarFor viewModel: ProfileHeaderViewModel)
 }
 
 class ProfileHeaderCollectionReusableView: UICollectionReusableView {
@@ -75,6 +77,10 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         
         addSubviews()
         configureButtons()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapAvatar))
+        avatarImageView.addGestureRecognizer(tap)
+        avatarImageView.isUserInteractionEnabled = true
     }
     
     required init?(coder: NSCoder) {
@@ -108,6 +114,13 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
     }
     
     //MARK: - Actions
+    
+    @objc func didTapAvatar() {
+        guard let viewModel = self.viewModel else {
+            return
+        }
+        delegate?.profileHeaderCollectionReusableView(self, didTapAvatarFor: viewModel)
+    }
     
     @objc func didTapPrimaryButton() {
         guard let viewModel = self.viewModel else {
