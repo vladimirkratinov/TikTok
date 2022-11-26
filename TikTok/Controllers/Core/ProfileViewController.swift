@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
  UICollectionViewDelegateFlowLayout {
@@ -221,7 +222,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
+        ProgressHUD.show("Uploading")
+        // upload and update UI
     }
-    
-    // upload and update UI
 }
