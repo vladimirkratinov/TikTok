@@ -68,13 +68,15 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         title = user.username.uppercased()
         view.backgroundColor = .systemBackground
         
+        print(posts)
+        
         view.addSubview(collectionView)
         
         // assign delegate and data source
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        let username = UserDefaults.standard.string(forKey: "username")?.uppercased() ?? "Me"
+        let username = UserDefaults.standard.string(forKey: "username") ?? "Me"
         if title == username {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
                 image: UIImage(systemName: "gear"),

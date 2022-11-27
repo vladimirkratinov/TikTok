@@ -97,13 +97,15 @@ final class DatabaseManager {
             
             if var posts = value["posts"] as? [[String: Any]] {
                 posts.append(newEntry)
-                value["posts"] = [newEntry]
+                value["posts"] = posts
                 self?.database.child("users").child(username).setValue(value) { error, _ in
                     guard error == nil else {
                         completion(false)
                         return
                     }
+                    print("Post was added successfully!")
                     completion(true)
+                    
                 }
             }
             else {
@@ -113,7 +115,9 @@ final class DatabaseManager {
                         completion(false)
                         return
                     }
+                    print("WARNING: Post is being re-created!")
                     completion(true)
+                    
                 }
             }
         }

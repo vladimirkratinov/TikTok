@@ -57,6 +57,7 @@ class CaptionViewController: UIViewController {
     @objc func didTapPost() {
         captionTextView.resignFirstResponder()
         let caption = captionTextView.text ?? ""
+        
         // Generate a video name that is unique based on ID
         let newVideoName = StorageManager.shared.generateVideoName()
         ProgressHUD.show("Posting")
