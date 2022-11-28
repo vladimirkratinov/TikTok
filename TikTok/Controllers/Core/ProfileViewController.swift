@@ -49,6 +49,8 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     }()
     
     private var posts = [PostModel]()
+    private var followers = [String]()
+    private var following = [String]()
     
     //MARK: - Init
     
@@ -168,13 +170,49 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         header.delegate = self
         
-        let viewModel = ProfileHeaderViewModel(
-            avatarImageURL: user.profilePictureURL,
-            followerCount: 125,
-            followingCount: 278,
-            isFollowing: isCurrentUserProfile ? nil : false
-        )
-        header.configure(with: viewModel)
+        /*
+         Dispatch group: Concept where you can  make 2 requests and set a notify block
+         which is gonna tell which of both of these network calls has finished
+         */
+        
+        let group = DispatchGroup()
+        group.enter()
+        group.enter()
+        
+        //  followers: ["kanyewest", "morrowind_fan", "dagoth_ur"]
+        
+        // Fetch actual result
+        DatabaseManager.shared.getRelationships(for: user, type: .followers) { [weak self] followers in
+            
+            /*
+             "defer" - execute this part of work once the closure scope is about to leave,
+             so we want to notify the group that we left one of the two operations.
+             Two pieces of work started: First of them ended, Second ended - and we noticed that all work had been done.
+             */
+            
+            defer {
+                group.leave()
+            }
+            self?.followers = followers
+        }
+        
+        DatabaseManager.shared.getRelationships(for: user, type: .following) { [weak self] following in
+            defer {
+                group.leave()
+            }
+            self?.following = following
+        }
+        
+        group.notify(queue: .main) {
+            let viewModel = ProfileHeaderViewModel(
+                avatarImageURL: self.user.profilePictureURL,
+                followerCount: self.followers.count,
+                followingCount: self.following.count,
+                isFollowing: self.isCurrentUserProfile ? nil : false
+            )
+            header.configure(with: viewModel)
+        }
+
         return header
     }
     
@@ -200,12 +238,16 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ProfileHeaderViewModel) {
-        
+        let vc = UserListViewController(type: .followers, user: user)
+        vc.users = followers
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
-        
+        let vc = UserListViewController(type: .following, user: user)
+        vc.users = following
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,

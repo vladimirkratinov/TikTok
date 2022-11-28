@@ -150,7 +150,7 @@ class ProfileHeaderCollectionReusableView: UICollectionReusableView {
         self.viewModel = viewModel
         // Set up Header
         followersButton.setTitle("\(viewModel.followerCount)\nFollowers", for: .normal)
-        followingButton.setTitle("\(viewModel.followingCount)\nFollowers", for: .normal)
+        followingButton.setTitle("\(viewModel.followingCount)\nFollowing", for: .normal)
         
         if let avatarURL = viewModel.avatarImageURL {
             // Download URL and assign it

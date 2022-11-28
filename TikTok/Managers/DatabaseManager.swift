@@ -135,10 +135,6 @@ final class DatabaseManager {
         completion(true)
     }
     
-    public func getAllUsers(completion: ([Notification]) -> Void) {
-        
-    }
-    
     public func getPosts(for user: User, completion: @escaping ([PostModel]) -> Void) {
             
         let path = "users/\(user.username.lowercased())/posts"
@@ -160,4 +156,23 @@ final class DatabaseManager {
             completion(models)
         }
     }
+    
+    public func getRelationships(
+        for user: User,
+        type: UserListViewController.ListType,
+        completion: @escaping ([String]) -> Void
+    ) {
+        let path = "users/\(user.username.lowercased())/\(type.rawValue)"
+        print("Fetching path: \(path)")
+        database.child(path).observeSingleEvent(of: .value) { snapshot in
+            guard let usernameCollection = snapshot.value as? [String] else {
+                completion([])
+                return
+            }
+            
+            completion(usernameCollection)
+        }
+    }
+    
+    
 }

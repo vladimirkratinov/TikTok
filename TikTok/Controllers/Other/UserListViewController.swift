@@ -15,13 +15,24 @@ class UserListViewController: UIViewController, UITableViewDelegate, UITableView
         return tableView
     }()
     
-    enum ListType {
+    private let noUsersLabel: UILabel = {
+        let label = UILabel()
+        label.text = "No Users"
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    enum ListType: String {
         case followers
         case following
     }
     
     let user: User
     let type: ListType
+    public var users = [String]()
+    
+    //MARK: - Init
     
     init(type: ListType, user: User) {
         self.type = type
@@ -42,26 +53,39 @@ class UserListViewController: UIViewController, UITableViewDelegate, UITableView
         case .following: title = "Following"
         }
         
-        view.addSubview(tableView)
+        if users.isEmpty {
+            view.addSubview(noUsersLabel)
+            noUsersLabel.sizeToFit()
+        }
+        else {
+            view.addSubview(tableView)
+            tableView.delegate = self
+            tableView.dataSource = self
+        }
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        print("Users: \(users)")
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tableView.frame = view.bounds
+        if tableView.superview == view {
+            tableView.frame = view.bounds
+        }
+        else {
+            noUsersLabel.center = view.center
+        }
     }
     
     //MARK: - TableView:
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Hello World"
+        cell.selectionStyle = .none
+        cell.textLabel?.text = users[indexPath.row].lowercased()
         return cell
     }
 }
