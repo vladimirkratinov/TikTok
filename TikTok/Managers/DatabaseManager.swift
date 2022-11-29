@@ -248,7 +248,7 @@ final class DatabaseManager {
                     }
                 }
             }
-            // Remove in target User's followers
+            // Remove in target User's followers        *temporary change for commit
             let path2 = "users/\(user.username.lowercased())/followers"
             database.child(path2).observeSingleEvent(of: .value) { snapshot in
                 let usernameToRemove = currentUserUsername.lowercased()
