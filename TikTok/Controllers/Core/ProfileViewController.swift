@@ -237,12 +237,13 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapPrimaryButtonWith viewModel: ProfileHeaderViewModel) {
-        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else {
-            return
-        }
+//        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
         
-        if self.user.username == currentUsername {
+        if isCurrentUserProfile {
             // Edit Profile
+            let vc = EditProfileViewController()
+            let navVC = UINavigationController(rootViewController: vc)
+            present(navVC, animated: true)
         }
         else {
             // Follow/Unfollow current users profile that we are viewing

@@ -43,6 +43,7 @@
 		F7B3BE7B29160D15006C3A5E /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */; };
 		F7B3BE7D29161732006C3A5E /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7C29161732006C3A5E /* PostComment.swift */; };
 		F7B3BE7F2916175C006C3A5E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B3BE7E2916175C006C3A5E /* User.swift */; };
+		F7C0D6FE2935DF5100C4B1D1 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C0D6FD2935DF5100C4B1D1 /* EditProfileViewController.swift */; };
 		F7C4FFC129157E26000BFE60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */; };
 		F7CD0139292DE6E500E062FA /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7CD0138292DE6E500E062FA /* ProfileHeaderViewModel.swift */; };
 		F7D4FBB42932C53B00F917E9 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D4FBB32932C53B00F917E9 /* PostCollectionViewCell.swift */; };
@@ -102,6 +103,7 @@
 		F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		F7B3BE7C29161732006C3A5E /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
 		F7B3BE7E2916175C006C3A5E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F7C0D6FD2935DF5100C4B1D1 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F7C4FFC029157E26000BFE60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F7CD0138292DE6E500E062FA /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		F7D4FBB32932C53B00F917E9 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				F774985C2914E97D000B7DDB /* PostViewController.swift */,
 				F7B3BE7A29160D15006C3A5E /* CommentsViewController.swift */,
 				F7EB67C22929956400A72049 /* CaptionViewController.swift */,
+				F7C0D6FD2935DF5100C4B1D1 /* EditProfileViewController.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 			files = (
 				F7D4FBB42932C53B00F917E9 /* PostCollectionViewCell.swift in Sources */,
 				F75BDE68292B42C40074CBE4 /* Notifications.swift in Sources */,
+				F7C0D6FE2935DF5100C4B1D1 /* EditProfileViewController.swift in Sources */,
 				F7E9BBCE292802FE00D10468 /* AuthButton.swift in Sources */,
 				F7E9BBCC292802EB00D10468 /* AuthField.swift in Sources */,
 				F75BDE6E292B465C0074CBE4 /* NotificationsPostLikeTableViewCell.swift in Sources */,
