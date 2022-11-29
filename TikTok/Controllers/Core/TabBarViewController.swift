@@ -53,6 +53,12 @@ class TabBarViewController: UITabBarController {
                     profilePictureURL: URL(string: urlString ?? ""),
                     identifier: UserDefaults.standard.string(forKey: "username")?.lowercased() ?? ""
                 )
+            
+//            User(
+//                username: "neo".uppercased(),
+//                profilePictureURL: nil,
+//                identifier: "neo"
+//            )
         )
         
         notifications.title = "Notifications"

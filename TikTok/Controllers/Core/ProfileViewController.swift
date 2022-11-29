@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     private var posts = [PostModel]()
     private var followers = [String]()
     private var following = [String]()
+    private var isFollower: Bool = false
     
     //MARK: - Init
     
@@ -178,6 +179,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         let group = DispatchGroup()
         group.enter()
         group.enter()
+        group.enter()
         
         //  followers: ["kanyewest", "morrowind_fan", "dagoth_ur"]
         
@@ -203,12 +205,23 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             self?.following = following
         }
         
+        DatabaseManager.shared.isValidRelationship(
+            for: user,
+                                                   
+            type: .followers
+        ) { [weak self] isFollower in
+                defer {
+                    group.leave()
+                }
+            self?.isFollower = isFollower
+            }
+        
         group.notify(queue: .main) {
             let viewModel = ProfileHeaderViewModel(
                 avatarImageURL: self.user.profilePictureURL,
                 followerCount: self.followers.count,
                 followingCount: self.following.count,
-                isFollowing: self.isCurrentUserProfile ? nil : false
+                isFollowing: self.isCurrentUserProfile ? nil : self.isFollower
             )
             header.configure(with: viewModel)
         }
@@ -233,6 +246,34 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         }
         else {
             // Follow/Unfollow current users profile that we are viewing
+            if self.isFollower {
+                // Unfollow
+                DatabaseManager.shared.updateRelationship(for: user, follow: false) { [weak self] success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self?.isFollower = false
+                            self?.collectionView.reloadData()
+                        }
+                    }
+                    else {
+                        // alert
+                    }
+                }
+            }
+            else {
+                // Follow
+                DatabaseManager.shared.updateRelationship(for: user, follow: true) { [weak self] success in
+                    if success {
+                        DispatchQueue.main.async {
+                            self?.isFollower = true
+                            self?.collectionView.reloadData()
+                        }
+                    }
+                    else {
+                        // alert
+                    }
+                }
+            }
         }
     }
     
