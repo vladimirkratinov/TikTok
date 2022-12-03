@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = user.username.uppercased()
+        title = user.username.lowercased()
         view.backgroundColor = .systemBackground
         
         print(posts)
@@ -80,7 +80,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         
         let username = UserDefaults.standard.string(forKey: "username") ?? "Me"
-        if title == username {
+        if title == username.lowercased() {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
                 image: UIImage(systemName: "gear"),
                 style: .done,
