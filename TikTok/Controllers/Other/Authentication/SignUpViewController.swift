@@ -128,9 +128,11 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             DispatchQueue.main.async {
                 if success {
                     // Signed Up:
+                    HapticsManager.shared.vibrate(for: .success)
                     self?.dismiss(animated: true)
                     
                 } else {
+                    HapticsManager.shared.vibrate(for: .error)
                     let alert = UIAlertController(title: "Sign Up Failed",
                                                   message: "Something went wrong when trying to register. Please try again.",
                                                   preferredStyle: .alert

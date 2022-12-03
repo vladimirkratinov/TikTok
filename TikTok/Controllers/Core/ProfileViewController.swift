@@ -137,6 +137,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         // deselect item when tap on it:
         collectionView.deselectItem(at: indexPath, animated: true)
         // Open Post:
+        HapticsManager.shared.vibrateForSelection()
         let post = posts[indexPath.row]
         let vc = PostViewController(model: post)
         vc.delegate = self
@@ -237,8 +238,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapPrimaryButtonWith viewModel: ProfileHeaderViewModel) {
-//        guard let currentUsername = UserDefaults.standard.string(forKey: "username") else { return }
-        
+        HapticsManager.shared.vibrateForSelection()
         if isCurrentUserProfile {
             // Edit Profile
             let vc = EditProfileViewController()
@@ -280,6 +280,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ProfileHeaderViewModel) {
+        HapticsManager.shared.vibrateForSelection()
         let vc = UserListViewController(type: .followers, user: user)
         vc.users = followers
         navigationController?.pushViewController(vc, animated: true)
@@ -287,6 +288,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
+        HapticsManager.shared.vibrateForSelection()
         let vc = UserListViewController(type: .following, user: user)
         vc.users = following
         navigationController?.pushViewController(vc, animated: true)
@@ -294,9 +296,8 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
     
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapAvatarFor viewModel: ProfileHeaderViewModel) {
-        guard isCurrentUserProfile else {
-            return
-        }
+        guard isCurrentUserProfile else { return }
+        HapticsManager.shared.vibrateForSelection()
         let actionSheet = UIAlertController(title: "Profile Picture", message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
@@ -320,7 +321,6 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         picker.allowsEditing = true
         present(picker, animated: true)
     }
-
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -343,7 +343,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                 case .success(let downloadURL):
                     // cash download URL for profile picture
                     UserDefaults.standard.setValue(downloadURL.absoluteString, forKey: "profile_picture_url")
-                    
+                    HapticsManager.shared.vibrate(for: .success)
                     // reload header with user's picture
                     strongSelf.user = User(
                         username: strongSelf.user.username,
@@ -357,6 +357,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                     strongSelf.collectionView.reloadData()
                     
                 case .failure:
+                    HapticsManager.shared.vibrate(for: .error)
                     ProgressHUD.showError("Failed to upload profile picture.")
                 }
             }
