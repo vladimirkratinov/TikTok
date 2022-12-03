@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow access to save the video to your device</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please allow access to select profile picture from library</string>
 	<key>NSCameraUsageDescription</key>
