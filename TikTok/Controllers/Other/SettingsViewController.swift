@@ -6,6 +6,17 @@
 //
 
 import UIKit
+import SafariServices
+
+struct SettingsSection {
+    let title: String
+    let options: [SettingsOption]
+}
+
+struct SettingsOption {
+    let title: String
+    let handler: (() -> Void)
+}
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,8 +26,32 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         return table
     }()
     
+    var sections = [SettingsSection]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        sections = [
+            SettingsSection(
+                title: "Information",
+                options: [
+                    SettingsOption(title: "Terms of Service", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.tiktok.com/legal/terms-of-service") else { return }
+                            let vc = SFSafariViewController(url: url)
+                            self?.present(vc, animated: true)
+                        }
+                    }),
+                    SettingsOption(title: "Privacy Policy", handler: { [weak self] in
+                        DispatchQueue.main.async {
+                            guard let url = URL(string: "https://www.tiktok.com/legal/privacy-policy") else { return }
+                            let vc = SFSafariViewController(url: url)
+                            self?.present(vc, animated: true)
+                        }
+                    })
+                ])
+        ]
+        
         title = "Settings"
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
@@ -75,13 +110,31 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.frame = view.bounds
     }
     
+    //MARK: - TableView
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return sections[section].options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = sections[indexPath.section].options[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = "Hello World"
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = model.title
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = sections[indexPath.section].options[indexPath.row]
+        model.handler()
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].title
     }
 }
