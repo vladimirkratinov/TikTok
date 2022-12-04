@@ -44,6 +44,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                         DispatchQueue.main.async {
                             Appirater.tryToShowPrompt()
                         }
+                    }),
+                    SettingsOption(title: "Share App", handler: {
+                        DispatchQueue.main.async { [weak self] in
+                            guard let url = URL(string: "https://www.tiktok.com") else { return }
+                            let vc = UIActivityViewController(activityItems: [url], applicationActivities: [])
+                            self?.present(vc, animated: true)
+                        }
                     })
                 ]),
 
