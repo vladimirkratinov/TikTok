@@ -7,6 +7,7 @@
 
 import UIKit
 import SafariServices
+import Appirater
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -33,6 +34,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 title: "Preferences",
                 options: [
                     SettingsOption(title: "Save Videos", handler: { })
+                ]),
+            
+            SettingsSection(
+                title: "Enjoying the app?",
+                options: [
+                    SettingsOption(title: "Rate App", handler: {
+//                        UIApplication.shared.open(URL(string: ""))
+                        DispatchQueue.main.async {
+                            Appirater.tryToShowPrompt()
+                        }
+                    })
                 ]),
 
             SettingsSection(
