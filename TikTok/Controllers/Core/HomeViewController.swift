@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
         let control = UISegmentedControl(items: titles)
         control.selectedSegmentIndex = 1
         control.backgroundColor = nil
-        control.selectedSegmentTintColor = .white
+        control.selectedSegmentTintColor = .systemBackground
         return control
     }()
     
