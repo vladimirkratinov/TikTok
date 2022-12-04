@@ -22,10 +22,10 @@ protocol ExploreManagerDelegate: AnyObject {
 final class ExploreManager {
     /// Shared singleton instance
     static let shared = ExploreManager()
-    
+
     /// Delegate to notify of events
     weak var delegate: ExploreManagerDelegate?
-    
+
     /// Represents banner action type
     enum BannerAction: String {
         /// Post type
@@ -35,16 +35,16 @@ final class ExploreManager {
         /// Creator type
         case user
     }
-    
-    //MARK: - Public
-    
+
+    // MARK: - Public
+
     /// Gets explore data for banner
     /// - Returns: Return a collection of models
     public func getExploreBanners() -> [ExploreBannerViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
-        
+
         return exploreData.banners.compactMap { model in
             ExploreBannerViewModel(
                 image: UIImage(named: model.image),
@@ -52,14 +52,14 @@ final class ExploreManager {
             ) { [weak self] in
                 // handler
                 guard let action = BannerAction(rawValue: model.action) else { return }
-                
+
                 DispatchQueue.main.async {
                     let vc = UIViewController()
                     vc.view.backgroundColor = .systemBackground
                     vc.title = action.rawValue.uppercased()
                     self?.delegate?.pushViewController(vc)
                 }
-                
+
                 switch action {
                 case .user:
                     // profile
@@ -74,14 +74,14 @@ final class ExploreManager {
             }
         }
     }
-    
+
     /// Gets explore data for trending posts
     /// - Returns: Return a collection of models
     public func getExploreTrendingPosts() -> [ExplorePostViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
-        
+
         return exploreData.trendingPosts.compactMap { model in
             ExplorePostViewModel(
                 thumbnailImage: UIImage(named: model.image),
@@ -101,14 +101,14 @@ final class ExploreManager {
             }
         }
     }
-    
+
     /// Gets explore data for popular creators
     /// - Returns: Return a collection of models
     public func getExploreCreators() -> [ExploreUserViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
-        
+
         return exploreData.creators.compactMap { model in
             ExploreUserViewModel(
                 profilePicture: UIImage(named: model.image),
@@ -125,14 +125,14 @@ final class ExploreManager {
             }
         }
     }
-    
+
     /// Gets explore data for hashtags
     /// - Returns: Return a collection of models
     public func getExploreHashtags() -> [ExploreHashtagViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
-        
+
         return exploreData.hashtags.compactMap { model in
             ExploreHashtagViewModel(
                 text: "#" + model.tag,
@@ -146,14 +146,14 @@ final class ExploreManager {
             }
         }
     }
-    
+
     /// Gets explore data for popular posts
     /// - Returns: Return a collection of models
     public func getExplorePopularPosts() -> [ExplorePostViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
-        
+
         return exploreData.popular.compactMap { model in
             ExplorePostViewModel(
                 thumbnailImage: UIImage(named: model.image),
@@ -173,14 +173,14 @@ final class ExploreManager {
             }
         }
     }
-    
+
     /// Gets explore data for recent posts
     /// - Returns: Return a collection of models
     public func getExploreRecentPosts() -> [ExplorePostViewModel] {
         guard let exploreData = parseExploreData() else {
             return []
         }
-        
+
         return exploreData.recentPosts.compactMap { model in
             ExplorePostViewModel(
                 thumbnailImage: UIImage(named: model.image),
@@ -200,16 +200,16 @@ final class ExploreManager {
             }
         }
     }
-    
-    //MARK: - Private
-    
+
+    // MARK: - Private
+
     /// Parse explore JSON data
     /// - Returns: Returns an optional response model
     private func parseExploreData() -> ExploreResponse? {
         guard let path = Bundle.main.path(forResource: "explore", ofType: "json") else {
             return nil
         }
-        
+
         do {
             if #available(iOS 16.0, *) {
                 let url = URL(filePath: path)
@@ -221,8 +221,7 @@ final class ExploreManager {
                 let data = try Data(contentsOf: url)
                 return try JSONDecoder().decode(ExploreResponse.self, from: data)
             }
-        }
-        catch {
+        } catch {
             print(error)
             return nil
         }
@@ -230,37 +229,37 @@ final class ExploreManager {
 }
 
 struct ExploreResponse: Codable {
-    let banners:       [Banner]
+    let banners: [Banner]
     let trendingPosts: [Post]
-    let creators:      [Creator]
-    let recentPosts:   [Post]
-    let hashtags:      [Hashtag]
-    let popular:       [Post]
-    let recommended:   [Post]
+    let creators: [Creator]
+    let recentPosts: [Post]
+    let hashtags: [Hashtag]
+    let popular: [Post]
+    let recommended: [Post]
 }
 
 struct Banner: Codable {
-    let id:     String
-    let image:  String
-    let title:  String
+    let id: String
+    let image: String
+    let title: String
     let action: String
 }
 
 struct Post: Codable {
-    let id:      String
-    let image:   String
+    let id: String
+    let image: String
     let caption: String
 }
 
 struct Hashtag: Codable {
-    let image:  String
-    let tag:    String
-    let count:  Int
+    let image: String
+    let tag: String
+    let count: Int
 }
 
 struct Creator: Codable {
-    let id:               String
-    let image:            String
-    let username:         String
-    let followers_count:  Int
+    let id: String
+    let image: String
+    let username: String
+    let followers_count: Int
 }

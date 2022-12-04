@@ -11,7 +11,7 @@ import ProgressHUD
 class CaptionViewController: UIViewController {
 
     let videoURL: URL
-    
+
     private let captionTextView: UITextView = {
         let textView = UITextView()
         textView.contentInset = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
@@ -21,18 +21,18 @@ class CaptionViewController: UIViewController {
         textView.font = .systemFont(ofSize: 16, weight: .medium)
         return textView
     }()
-    
-    //MARK: - Init
-    
+
+    // MARK: - Init
+
     init(videoURL: URL) {
         self.videoURL = videoURL
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Add Caption"
@@ -43,25 +43,25 @@ class CaptionViewController: UIViewController {
                                                             action: #selector(didTapPost))
         view.addSubview(captionTextView)
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         captionTextView.frame = CGRect(x: 5, y: view.safeAreaInsets.top + 5, width: view.width - 10, height: 150).integral
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         captionTextView.becomeFirstResponder()
     }
-    
+
     @objc func didTapPost() {
         captionTextView.resignFirstResponder()
         let caption = captionTextView.text ?? ""
-        
+
         // Generate a video name that is unique based on ID
         let newVideoName = StorageManager.shared.generateVideoName()
         ProgressHUD.show("Posting")
-        
+
         // Upload Video
         StorageManager.shared.uploadVideo(from: videoURL, filename: newVideoName) { [weak self] success in
             DispatchQueue.main.async {
@@ -75,8 +75,7 @@ class CaptionViewController: UIViewController {
                             self?.navigationController?.popToRootViewController(animated: true)
                             self?.tabBarController?.selectedIndex = 0
                             self?.tabBarController?.tabBar.isHidden = false
-                        }
-                        else {
+                        } else {
                             HapticsManager.shared.vibrate(for: .error)
                             ProgressHUD.dismiss()
                             let alert = UIAlertController(title: "Whoops",
@@ -86,8 +85,7 @@ class CaptionViewController: UIViewController {
                             self?.present(alert, animated: true)
                         }
                     }
-                }
-                else {
+                } else {
                     HapticsManager.shared.vibrate(for: .error)
                     ProgressHUD.dismiss()
                     let alert = UIAlertController(title: "Whoops",

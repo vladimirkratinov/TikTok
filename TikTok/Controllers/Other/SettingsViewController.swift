@@ -22,19 +22,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         )
         return table
     }()
-    
+
     var sections = [SettingsSection]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         sections = [
             SettingsSection(
                 title: "Preferences",
                 options: [
-                    SettingsOption(title: "Save Videos", handler: { }),
+                    SettingsOption(title: "Save Videos", handler: { })
                 ]),
-            
+
             SettingsSection(
                 title: "Information",
                 options: [
@@ -54,7 +54,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     })
                 ])
         ]
-        
+
         title = "Settings"
         view.backgroundColor = .systemBackground
         view.addSubview(tableView)
@@ -62,7 +62,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.dataSource = self
         createFooter()
     }
-    
+
     func createFooter() {
         let footer = UIView(frame: CGRect(x: 0, y: 0, width: view.width, height: 100))
         let button = UIButton(frame: CGRect(x: (view.width-200)/2, y: 25, width: 200, height: 50))
@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         footer.addSubview(button)
         tableView.tableFooterView = footer
     }
-    
+
     @objc func didTapSignOut() {
         let actionSheet = UIAlertController(
             title: "Sign Out",
@@ -86,46 +86,45 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     if success {
                         UserDefaults.standard.setValue(nil, forKey: "username")
                         UserDefaults.standard.setValue(nil, forKey: "profile_picture_url")
-                        
+
                         let vc = SignInViewController()
                         let navVC = UINavigationController(rootViewController: vc)
                         navVC.modalPresentationStyle = .fullScreen
                         self?.present(navVC, animated: true)
-                        
+
                         self?.navigationController?.popToRootViewController(animated: true)
                         self?.tabBarController?.selectedIndex = 0
-                    }
-                    else {
+                    } else {
                         // failed
                         let alert = UIAlertController(title: "Whoops", message: "Something went wrong when signing out. Please try again.", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
                         self?.present(alert, animated: true)
-                        
+
                     }
                 }
             }
         }))
         present(actionSheet, animated: true)
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
     }
-    
-    //MARK: - TableView
-    
+
+    // MARK: - TableView
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sections[section].options.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = sections[indexPath.section].options[indexPath.row]
-        
+
         if model.title == "Save Videos" {
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: SwitchTableViewCell.identifier,
@@ -137,19 +136,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.configure(with: SwitchCellViewModel(title: model.title, isOn: UserDefaults.standard.bool(forKey: "save_video")))
             return cell
         }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = model.title
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = sections[indexPath.section].options[indexPath.row]
         model.handler()
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].title
     }

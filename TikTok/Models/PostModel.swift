@@ -13,7 +13,7 @@ struct PostModel {
     var fileName: String = ""
     var caption: String = ""
     var isLikedByCurrentUser = false
-    
+
     static func mockModels() -> [PostModel] {
         var posts = [PostModel]()
         for _ in 0...100 {
@@ -29,7 +29,7 @@ struct PostModel {
         }
         return posts
     }
-    
+
     /// Represents database child path for this post in a given user node
     var videoChildPath: String {
         return "videos/\(user.username.lowercased())/\(fileName)"

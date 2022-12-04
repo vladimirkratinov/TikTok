@@ -11,7 +11,7 @@ enum NotificationType {
     case postLike(postName: String)
     case userFollow(username: String)
     case postComment(postName: String)
-    
+
     var id: String {
         switch self {
         case .postLike: return "postLike"
@@ -27,14 +27,14 @@ class Notification {
     let text: String
     let type: NotificationType
     let date: Date
-    
+
     init(isHidden: Bool = false, text: String, type: NotificationType, date: Date) {
         self.isHidden = isHidden
         self.text = text
         self.type = type
         self.date = date
     }
-    
+
     static func mockData() -> [Notification] {
         let first = Array(0...4).compactMap {
             Notification(
@@ -43,7 +43,7 @@ class Notification {
                 date: Date()
             )
         }
-        
+
         let second = Array(0...4).compactMap {
             Notification(
                 text: "Username: \($0)",
@@ -51,7 +51,7 @@ class Notification {
                 date: Date()
             )
         }
-        
+
         let third = Array(0...4).compactMap {
             Notification(
                 text: "Like Post: \($0)",
@@ -59,7 +59,7 @@ class Notification {
                 date: Date()
             )
         }
-        
+
         return first + second + third
     }
 }

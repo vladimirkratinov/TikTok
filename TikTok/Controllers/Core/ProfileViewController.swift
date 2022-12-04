@@ -9,76 +9,76 @@ import UIKit
 import ProgressHUD
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,
- UICollectionViewDelegateFlowLayout {
-    
+                             UICollectionViewDelegateFlowLayout {
+
     enum PicturePickerType {
         case camera
         case photoLibrary
     }
-    
+
     var isCurrentUserProfile: Bool {
         if let username = UserDefaults.standard.string(forKey: "username") {
             return user.username.lowercased() == username.lowercased()
         }
         return false
     }
-    
+
     var user: User
-    
+
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        
+
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.backgroundColor = .systemBackground
         collection.showsVerticalScrollIndicator = false
-        
+
         // register Supplementary View
         collection.register(
             ProfileHeaderCollectionReusableView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier
         )
-        
+
         collection.register(
             PostCollectionViewCell .self,
             forCellWithReuseIdentifier: PostCollectionViewCell.identifier
         )
-        
+
         return collection
     }()
-    
+
     private var posts = [PostModel]()
     private var followers = [String]()
     private var following = [String]()
     private var isFollower: Bool = false
-    
-    //MARK: - Init
-    
+
+    // MARK: - Init
+
     init(user: User) {
         self.user = user
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = user.username.lowercased()
         view.backgroundColor = .systemBackground
-        
+
         print(posts)
-        
+
         view.addSubview(collectionView)
-        
+
         // assign delegate and data source
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+
         let username = UserDefaults.standard.string(forKey: "username") ?? "Me"
         if title == username.lowercased() {
             navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -91,12 +91,12 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         // fetch posts from the Firebase
         fetchPosts()
     }
-    
+
     @objc func didTapSettings() {
         let vc = SettingsViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func fetchPosts() {
         DatabaseManager.shared.getPosts(for: user) { [weak self] postModels in
             DispatchQueue.main.async {
@@ -105,34 +105,34 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
         }
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
-    
-    //MARK: - CollectionView
-    
+
+    // MARK: - CollectionView
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return posts.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // dequeue a cell:
         let postModel = posts[indexPath.row]
         guard let cell = collectionView.dequeueReusableCell(        // guard let because it may be optional.
             withReuseIdentifier: PostCollectionViewCell.identifier,
             for: indexPath
-            
+
         ) as? PostCollectionViewCell else { // Cast as given cell. Reason: Use the configure function.
             return UICollectionViewCell()
         }
-        
+
         cell.configure(with: postModel)     // configure with PostModel
         cell.backgroundColor = .systemPink
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // deselect item when tap on it:
         collectionView.deselectItem(at: indexPath, animated: true)
@@ -144,79 +144,79 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         vc.title = "Video"
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = (view.width - 2) / 3        // add (- 2) to make visible third row
         return CGSize(width: width, height: width * 1.5) // 16:9 Aspect Ratio Vertical
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
-    
+
     // define size of the header, and dequeue the header:
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard kind == UICollectionView.elementKindSectionHeader,
-                let header = collectionView.dequeueReusableSupplementaryView(
-                    ofKind: kind,
-                    withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier,
-                    for: indexPath
-                ) as? ProfileHeaderCollectionReusableView
+              let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: ProfileHeaderCollectionReusableView.identifier,
+                for: indexPath
+              ) as? ProfileHeaderCollectionReusableView
         else {
             return UICollectionReusableView()
         }
-        
+
         header.delegate = self
-        
+
         /*
          Dispatch group: Concept where you can  make 2 requests and set a notify block
          which is gonna tell which of both of these network calls has finished
          */
-        
+
         let group = DispatchGroup()
         group.enter()
         group.enter()
         group.enter()
-        
+
         //  followers: ["kanyewest", "morrowind_fan", "dagoth_ur"]
-        
+
         // Fetch actual result
         DatabaseManager.shared.getRelationships(for: user, type: .followers) { [weak self] followers in
-            
+
             /*
              "defer" - execute this part of work once the closure scope is about to leave,
              so we want to notify the group that we left one of the two operations.
              Two pieces of work started: First of them ended, Second ended - and we noticed that all work had been done.
              */
-            
+
             defer {
                 group.leave()
             }
             self?.followers = followers
         }
-        
+
         DatabaseManager.shared.getRelationships(for: user, type: .following) { [weak self] following in
             defer {
                 group.leave()
             }
             self?.following = following
         }
-        
+
         DatabaseManager.shared.isValidRelationship(
             for: user,
-                                                   
+
             type: .followers
         ) { [weak self] isFollower in
-                defer {
-                    group.leave()
-                }
-            self?.isFollower = isFollower
+            defer {
+                group.leave()
             }
-        
+            self?.isFollower = isFollower
+        }
+
         group.notify(queue: .main) {
             let viewModel = ProfileHeaderViewModel(
                 avatarImageURL: self.user.profilePictureURL,
@@ -229,7 +229,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         return header
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.width, height: 300)
     }
@@ -244,8 +244,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
             let vc = EditProfileViewController()
             let navVC = UINavigationController(rootViewController: vc)
             present(navVC, animated: true)
-        }
-        else {
+        } else {
             // Follow/Unfollow current users profile that we are viewing
             if self.isFollower {
                 // Unfollow
@@ -255,13 +254,11 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
                             self?.isFollower = false
                             self?.collectionView.reloadData()
                         }
-                    }
-                    else {
+                    } else {
                         // alert
                     }
                 }
-            }
-            else {
+            } else {
                 // Follow
                 DatabaseManager.shared.updateRelationship(for: user, follow: true) { [weak self] success in
                     if success {
@@ -269,15 +266,14 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
                             self?.isFollower = true
                             self?.collectionView.reloadData()
                         }
-                    }
-                    else {
+                    } else {
                         // alert
                     }
                 }
             }
         }
     }
-    
+
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowersButtonWith viewModel: ProfileHeaderViewModel) {
         HapticsManager.shared.vibrateForSelection()
@@ -285,7 +281,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         vc.users = followers
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapFollowingButtonWith viewModel: ProfileHeaderViewModel) {
         HapticsManager.shared.vibrateForSelection()
@@ -293,7 +289,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
         vc.users = following
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func profileHeaderCollectionReusableView(_ header: ProfileHeaderCollectionReusableView,
                                              didTapAvatarFor viewModel: ProfileHeaderViewModel) {
         guard isCurrentUserProfile else { return }
@@ -313,7 +309,7 @@ extension ProfileViewController: ProfileHeaderCollectionReusableViewDelegate {
 
         present(actionSheet, animated: true)
     }
-    
+
     func presentProfilePicturePicker(type: PicturePickerType) {
         let picker = UIImagePickerController()
         picker.sourceType = type == .camera ? .camera : .photoLibrary
@@ -327,14 +323,14 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true)
-        
+
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        
+
         ProgressHUD.show("Uploading...")
-        
+
         // upload and update UI
         StorageManager.shared.uploadProfilePicture(with: image) { [weak self] result in
             DispatchQueue.main.async {
@@ -350,12 +346,12 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                         profilePictureURL: downloadURL,
                         identifier: strongSelf.user.username
                     )
-                    
+
                     ProgressHUD.showSucceed("Picture updated!")
-                    
+
                     // reload data
                     strongSelf.collectionView.reloadData()
-                    
+
                 case .failure:
                     HapticsManager.shared.vibrate(for: .error)
                     ProgressHUD.showError("Failed to upload profile picture.")
@@ -369,7 +365,7 @@ extension ProfileViewController: PostViewControllerDelegate {
     func postViewController(_ vc: PostViewController, didTapCommentButtonFor post: PostModel) {
         // Present comments
     }
-    
+
     func postViewController(_ vc: PostViewController, didTapProfileButtonFor post: PostModel) {
         // Push another profile
     }

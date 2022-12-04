@@ -12,15 +12,15 @@ import FirebaseDatabase
 final class DatabaseManager {
     /// Singleton instance
     public static let shared = DatabaseManager()
-    
+
     /// Database reference
     private let database = Database.database().reference()
-    
+
     /// Private constructor
     private init() {}
-    
-    //MARK: - Public
-    
+
+    // MARK: - Public
+
     /// Insert a new user
     /// - Parameters:
     ///   - email: User email
@@ -29,20 +29,20 @@ final class DatabaseManager {
     public func insertUser(with email: String, username: String, completion: @escaping (Bool) -> Void) {
         /*
          users: {
-            "wizardexiles": {
-                email: email
-                posts: []
-            }
+         "wizardexiles": {
+         email: email
+         posts: []
+         }
          }
          */
-        
+
         // get current users key,
         // insert new entry,
         // create root users.
-        
+
         database.child("users").observeSingleEvent(of: .value) { [weak self] snapshot in
             guard var usersDictionary = snapshot.value as? [String: Any] else {
-                //create users root node
+                // create users root node
                 self?.database.child("users").setValue(
                     [
                         username: [
@@ -58,7 +58,7 @@ final class DatabaseManager {
                 }
                 return
             }
-            
+
             usersDictionary[username] = ["email": email]
             // save new users object
             self?.database.child("users").setValue(usersDictionary, withCompletionBlock: { error, _ in
@@ -70,7 +70,7 @@ final class DatabaseManager {
             })
         }
     }
-    
+
     /// Get username for a given email
     /// - Parameters:
     ///   - email: Email to query
@@ -81,7 +81,7 @@ final class DatabaseManager {
                 completion(nil)
                 return
             }
-            
+
             for (username, value) in users {
                 if value["email"] as? String == email {
                     completion(username)
@@ -90,7 +90,7 @@ final class DatabaseManager {
             }
         }
     }
-    
+
     /// Insert new post
     /// - Parameters:
     ///   - filename: File name to insert for
@@ -101,18 +101,18 @@ final class DatabaseManager {
             completion(false)
             return
         }
-        
+
         database.child("users").child(username).observeSingleEvent(of: .value) { [weak self] snapshot in
             guard var value = snapshot.value as? [String: Any] else {
                 completion(false)
                 return
             }
-            
+
             let newEntry = [
                 "name": filename,
                 "caption": caption
             ]
-            
+
             if var posts = value["posts"] as? [[String: Any]] {
                 posts.append(newEntry)
                 value["posts"] = posts
@@ -123,10 +123,9 @@ final class DatabaseManager {
                     }
                     print("Post was added successfully!")
                     completion(true)
-                    
+
                 }
-            }
-            else {
+            } else {
                 value["posts"] = [newEntry]
                 self?.database.child("users").child(username).setValue(value) { error, _ in
                     guard error == nil else {
@@ -135,18 +134,18 @@ final class DatabaseManager {
                     }
                     print("WARNING: Post is being re-created!")
                     completion(true)
-                    
+
                 }
             }
         }
     }
-    
+
     /// Get a current users notifications
     /// - Parameter completion: Result callback of models
     public func getNotifications(completion: @escaping ([Notification]) -> Void) {
         completion(Notification.mockData())
     }
-    
+
     /// Mark a notification as hidden
     /// - Parameters:
     ///   - notificationID: Notification identifier
@@ -154,37 +153,37 @@ final class DatabaseManager {
     public func markNotificationAsHidden(notificationID: String, completion: @escaping (Bool) -> Void) {
         completion(true)
     }
-    
-//    public func follow(username: String, completion: @escaping (Bool) -> Void) {
-//        completion(true)
-//    }
-    
+
+    //    public func follow(username: String, completion: @escaping (Bool) -> Void) {
+    //        completion(true)
+    //    }
+
     /// Get posts for a given user
     /// - Parameters:
     ///   - user: User to get posts for
     ///   - completion: Async result callback
     public func getPosts(for user: User, completion: @escaping ([PostModel]) -> Void) {
-            
+
         let path = "users/\(user.username.lowercased())/posts"
-        
+
         database.child(path).observeSingleEvent(of: .value) { snapshot in
-            guard let posts = snapshot.value as? [[String:String]] else {
+            guard let posts = snapshot.value as? [[String: String]] else {
                 completion([])
                 return
             }
-            
+
             // convert to the post model
             let models: [PostModel] = posts.compactMap {
                 var model = PostModel(identifier: UUID().uuidString, user: user)
-                model.fileName = $0["name"] ?? ""       //dictionary
+                model.fileName = $0["name"] ?? ""       // dictionary
                 model.caption = $0["caption"] ?? ""
                 return model
             }
-            
+
             completion(models)
         }
     }
-    
+
     /// Get relationship status for current and target user
     /// - Parameters:
     ///   - user: Target user to check following status for
@@ -201,11 +200,11 @@ final class DatabaseManager {
                 completion([])
                 return
             }
-            
+
             completion(usernameCollection)
         }
     }
-    
+
     /// Check if a relationship is valid
     /// - Parameters:
     ///   - user: Target user to check
@@ -217,18 +216,18 @@ final class DatabaseManager {
         completion: @escaping (Bool) -> Void
     ) {
         guard let currentUserUsername = UserDefaults.standard.string(forKey: "username")?.lowercased() else { return }
-        
+
         let path = "users/\(user.username.lowercased())/\(type.rawValue)"
         database.child(path).observeSingleEvent(of: .value) { snapshot in       // reading from database
             guard let usernameCollection = snapshot.value as? [String] else {   // snapshot.value - result of the network call
                 completion(false)
                 return
             }
-            
+
             completion(usernameCollection.contains(currentUserUsername))
         }
     }
-    
+
     /// Update follow status for user
     /// - Parameters:
     ///   - user: Target user
@@ -240,10 +239,10 @@ final class DatabaseManager {
         completion: @escaping (Bool) -> Void
     ) {
         guard let currentUserUsername = UserDefaults.standard.string(forKey: "username")?.lowercased() else { return }
-        
+
         if follow {
             // Follow:
-            
+
             // Insert into current User's following
             let path = "users/\(currentUserUsername)/following"
             database.child(path).observeSingleEvent(of: .value) { snapshot in
@@ -253,8 +252,7 @@ final class DatabaseManager {
                     self.database.child(path).setValue(current) { error, _ in
                         completion(error == nil)
                     }
-                }
-                else {
+                } else {
                     self.database.child(path).setValue([usernameToInsert]) { error, _ in
                         completion(error == nil)
                     }
@@ -269,15 +267,13 @@ final class DatabaseManager {
                     self.database.child(path2).setValue(current) { error, _ in
                         completion(error == nil)
                     }
-                }
-                else {
+                } else {
                     self.database.child(path2).setValue([usernameToInsert]) { error, _ in
                         completion(error == nil)
                     }
                 }
             }
-        }
-        else {
+        } else {
             // Unfollow:
 
             // Remove from current User's following

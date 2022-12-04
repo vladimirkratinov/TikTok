@@ -8,7 +8,7 @@
 import UIKit
 
 class ExploreViewController: UIViewController {
-    
+
     private let searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.placeholder = "Search..."
@@ -16,31 +16,31 @@ class ExploreViewController: UIViewController {
         bar.layer.masksToBounds = true
         return bar
     }()
-    
+
     private var sections = [ExploreSection]()
     private var collectionView: UICollectionView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
+
         ExploreManager.shared.delegate = self
-        
+
         configureModels()
         setUpSearchBar()
         setUpCollectionView()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView?.frame = view.bounds
     }
-    
+
     func setUpSearchBar() {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
     }
-    
+
     private func configureModels() {
         // Banner
         sections.append(
@@ -51,7 +51,7 @@ class ExploreViewController: UIViewController {
                 })
             )
         )
-        
+
         // Trending Posts
         sections.append(
             ExploreSection(
@@ -61,7 +61,7 @@ class ExploreViewController: UIViewController {
                 })
             )
         )
-        
+
         // Users
         sections.append(
             ExploreSection(
@@ -71,7 +71,7 @@ class ExploreViewController: UIViewController {
                 })
             )
         )
-        
+
         // Trending Hashtags
         sections.append(
             ExploreSection(
@@ -81,7 +81,7 @@ class ExploreViewController: UIViewController {
                 })
             )
         )
-                
+
         // Popular
         sections.append(
             ExploreSection(
@@ -91,7 +91,7 @@ class ExploreViewController: UIViewController {
                 })
             )
         )
-        
+
         // New/Recent
         sections.append(
             ExploreSection(
@@ -102,12 +102,12 @@ class ExploreViewController: UIViewController {
             )
         )
     }
-    
+
     func setUpCollectionView() {
         let layout = UICollectionViewCompositionalLayout { section, _ -> NSCollectionLayoutSection? in
             return self.layout(for: section)
         }
-        
+
         let collectionView = UICollectionView(
             frame: .zero,
             collectionViewLayout: layout
@@ -132,12 +132,12 @@ class ExploreViewController: UIViewController {
             ExploreHashtagCollectionViewCell.self,
             forCellWithReuseIdentifier: ExploreHashtagCollectionViewCell.identifier
         )
-        
+
         collectionView.backgroundColor = .systemBackground
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
-        
+
         self.collectionView = collectionView
     }
 }
@@ -146,14 +146,14 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sections[section].cells.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = sections[indexPath.section].cells[indexPath.row]
-        
+
         switch model {
         case .banner( let viewModel):
             guard let cell = collectionView.dequeueReusableCell(
@@ -205,13 +205,13 @@ extension ExploreViewController: UICollectionViewDelegate, UICollectionViewDataS
             return cell
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         HapticsManager.shared.vibrateForSelection()
-        
+
         let model = sections[indexPath.section].cells[indexPath.row]
-        
+
         switch model {
         case .banner( let viewModel):
             viewModel.handler()
@@ -229,27 +229,27 @@ extension ExploreViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(didTapCancel))
     }
-    
+
     @objc func didTapCancel() {
         navigationItem.rightBarButtonItem = nil
         searchBar.text = nil
         searchBar.resignFirstResponder()
     }
-    
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         navigationItem.rightBarButtonItem = nil
         searchBar.resignFirstResponder()
     }
 }
 
-//MARK: - Section Layouts
+// MARK: - Section Layouts
 
 extension ExploreViewController {
     func layout(for section: Int) -> NSCollectionLayoutSection {
         let sectionType = sections[section].type
-        
+
         switch sectionType {
-            
+
         case .banners:
             // Item
             let item = NSCollectionLayoutItem(
@@ -258,9 +258,9 @@ extension ExploreViewController {
                     heightDimension: .fractionalHeight(1)
                 )
             )
-            
+
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-            
+
             // Group
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
@@ -269,14 +269,14 @@ extension ExploreViewController {
                 ),
                 subitems: [item]
             )
-            
+
             // Section Layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .groupPaging
-             
+
             // Return
             return sectionLayout
-            
+
         case .users:
             // Item
             let item = NSCollectionLayoutItem(
@@ -285,9 +285,9 @@ extension ExploreViewController {
                     heightDimension: .fractionalHeight(1)
                 )
             )
-            
+
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-            
+
             // Group
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
@@ -296,14 +296,14 @@ extension ExploreViewController {
                 ),
                 subitems: [item]
             )
-            
+
             // Section Layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .continuous
-             
+
             // Return
             return sectionLayout
-            
+
         case .trendingHashtags:
             // Item
             let item = NSCollectionLayoutItem(
@@ -312,9 +312,9 @@ extension ExploreViewController {
                     heightDimension: .fractionalHeight(1)
                 )
             )
-            
+
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-            
+
             // Group
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
@@ -323,13 +323,13 @@ extension ExploreViewController {
                 ),
                 subitems: [item]
             )
-            
+
             // Section Layout
             let sectionLayout = NSCollectionLayoutSection(group: verticalGroup)
-             
+
             // Return
             return sectionLayout
-            
+
         case .trendingPosts, .new, .recommended:
             // Item
             let item = NSCollectionLayoutItem(
@@ -338,9 +338,9 @@ extension ExploreViewController {
                     heightDimension: .fractionalHeight(1)
                 )
             )
-            
+
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-            
+
             // Group
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
@@ -350,7 +350,7 @@ extension ExploreViewController {
                 subitem: item,
                 count: 2
             )
-            
+
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .absolute(110),
@@ -358,14 +358,14 @@ extension ExploreViewController {
                 ),
                 subitems: [verticalGroup]
             )
-            
+
             // Section Layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .continuous
-             
+
             // Return
             return sectionLayout
-            
+
         case .popular:
             // Item
             let item = NSCollectionLayoutItem(
@@ -374,9 +374,9 @@ extension ExploreViewController {
                     heightDimension: .fractionalHeight(1)
                 )
             )
-            
+
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
-            
+
             // Group
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
@@ -385,11 +385,11 @@ extension ExploreViewController {
                 ),
                 subitems: [item]
             )
-            
+
             // Section Layout
             let sectionLayout = NSCollectionLayoutSection(group: group)
             sectionLayout.orthogonalScrollingBehavior = .continuous
-             
+
             // Return
             return sectionLayout
         }
@@ -401,7 +401,7 @@ extension ExploreViewController: ExploreManagerDelegate {
         HapticsManager.shared.vibrateForSelection()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
     func didTapHashtag(_ hashtag: String) {
         HapticsManager.shared.vibrateForSelection()
         searchBar.text = hashtag
