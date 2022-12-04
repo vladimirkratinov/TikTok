@@ -203,10 +203,15 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
 
 extension NotificationsViewController: NotificationsUserFollowTableViewCellDelegate {
     func notificationsUserFollowTableViewCell(_ cell: NotificationsUserFollowTableViewCell, didTapFollowFor username: String) {
-        DatabaseManager.shared.follow(username: username) { success in
+        DatabaseManager.shared.updateRelationship(
+            for: User(
+                username: username,
+                profilePictureURL: nil,
+                identifier: UUID().uuidString),
+            follow: true
+        ) { success in
             if !success {
-                //something failed.
-                print("something failed when followed.")
+                // something went wrong
             }
         }
     }
