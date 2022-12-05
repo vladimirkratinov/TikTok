@@ -27,11 +27,9 @@ This is the sourse code repo for the tiktok app that I build in Swift.
 ### Posting Videos
 * Custom Camera Module
 * AVFoundation
-- Profiles (In progress)
+- Profiles
 
-![Screen Shot 2022-11-21 at 9 46 28 PM](https://user-images.githubusercontent.com/78992253/203235012-83efce4a-0e84-4dc0-9724-c0fb354229de.png)
-![Screen Shot 2022-11-21 at 9 42 43 PM](https://user-images.githubusercontent.com/78992253/203235003-a124c836-ef0d-42a4-a257-ad319d30bbdc.png)
-![Screen Shot 2022-11-21 at 9 42 51 PM](https://user-images.githubusercontent.com/78992253/203235008-f6ed41ff-5cde-4209-bca1-c78da0161384.png)
-![Screen Shot 2022-11-21 at 9 43 02 PM](https://user-images.githubusercontent.com/78992253/203235009-5e2337a7-fff0-4011-8b64-750b47285a7f.png)
-
-
+![Screen Shot 2022-12-04 at 9 23 48 PM](https://user-images.githubusercontent.com/78992253/205557888-ae71ad7b-4282-415a-bd47-331124ea75ce.png)
+![Screen Shot 2022-12-04 at 9 24 01 PM](https://user-images.githubusercontent.com/78992253/205557897-27f47367-4f53-4eda-a977-00a982045b89.png)
+![Screen Shot 2022-12-04 at 9 24 16 PM](https://user-images.githubusercontent.com/78992253/205557933-222445f4-74b0-4d70-8a30-b574936d7ffd.png)
+![Screen Shot 2022-12-04 at 9 24 19 PM](https://user-images.githubusercontent.com/78992253/205557945-dc263cc0-f06c-4b85-89ef-40de5c07be52.png)
